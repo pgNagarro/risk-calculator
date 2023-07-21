@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Please provide the details below :</h1><br>
+
+<div mat-dialog-content>
+
+    <div class="container">
+        <form [formGroup]="dimensionForm" (ngSubmit)="onFormSubmit()">
+            <div>
+                <label for="companyName">Company Name *</label><br><br>
+                <input type="text" id="companyName" formControlName="companyName" class="form-control form-rounded" /><br>
+                <div *ngIf="dimensionForm.get('companyName')?.invalid && dimensionForm.get('companyName')?.touched">
+                    <div id="errors" *ngIf="dimensionForm.get('companyName')?.errors?.required">Company Name is required !</div>
+                    <div id="errors" *ngIf="dimensionForm.get('companyName')?.errors?.containsNumber">Company Name should not contain numbers !</div>
+                </div>
+            </div>
+            <br>
+            <div>
+                <label for="dimensionName">Dimension Name *</label><br><br>
+                <input type="text" id="dimensionName" formControlName="dimensionName" class="form-control form-rounded" /><br>
+                <div *ngIf="dimensionForm.get('dimensionName')?.invalid && dimensionForm.get('dimensionName')?.touched">
+                    <div id="errors" *ngIf="dimensionForm.get('dimensionName')?.errors?.required">Dimension Name is required !</div>
+                    <div id="errors" *ngIf="dimensionForm.get('dimensionName')?.errors?.containsNumber">Dimension Name should not contain numbers !</div>
+                </div>
+            </div>
+            <br>
+            <div>
+                <label for="dimensionValue">Dimension Value *</label><br><br>
+                <input type="number" id="dimensionValue" formControlName="dimensionValue" class="form-control form-rounded" /><br>
+                <div *ngIf="dimensionForm.get('dimensionValue')?.invalid && dimensionForm.get('dimensionValue')?.touched">
+                    <div id="errors" *ngIf="dimensionForm.get('dimensionValue')?.errors?.required">Dimension Value is required !</div>
+                    <div id="errors" *ngIf="dimensionForm.get('dimensionValue')?.errors?.pattern">Please enter a valid number !</div>
+                </div>
+            </div>
+
+            <!-- <button type="submit" [disabled]="dimensionForm.invalid">Submit</button> -->
+
+        </form>
+    </div>
+
+</div>
+<div mat-dialog-actions>
+    <button class="AddButton" id="AddButton" role="button">Add</button>&nbsp;&nbsp;&nbsp;
+    <button class="CloseButton" id="CloseButton" role="button">Close</button>
+</div>
