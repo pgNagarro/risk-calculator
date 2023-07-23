@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Please provide the details below :</h1><br>
+
+<div mat-dialog-content>
+
+    <div class="container">
+        <form class="form-group" #form="ngForm">
+            <div>
+                <label for="companyName">Company Name - {{companyName}}</label><br><br>
+            </div>
+            <br>
+            <div *ngFor="let dimension of companyDimension?.dimensions">
+                <label for="dimensionValue">Enter {{dimension.dimensionName}} value *</label><br><br>
+                <input type="number" id="dimensionValue" class="form-control form-rounded" [(ngModel)]="dimension.dimensionValue" [name]="'dimensionValue-' + dimension.dimensionName" required min="0" max="100" #dimensionValue="ngModel" /><br>
+                <div id="errors" *ngIf="dimensionValue.invalid && (dimensionValue.dirty || dimensionValue.touched)">
+                    <div id="errors" *ngIf="dimensionValue.errors?.required">Dimension Value is required !</div>
+                    <div id="errors" *ngIf="dimensionValue.errors?.min || dimensionValue.errors?.max">
+                        Dimension Value must be between 0 and 100 !
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div mat-dialog-actions>
+    <button class="AddButton" id="AddButton" role="button" [disabled]="form.invalid" (click)="submit()">Update</button>&nbsp;&nbsp;&nbsp;
+    <button class="CloseButton" id="CloseButton" role="button" mat-dialog-close>Close</button>
+</div>

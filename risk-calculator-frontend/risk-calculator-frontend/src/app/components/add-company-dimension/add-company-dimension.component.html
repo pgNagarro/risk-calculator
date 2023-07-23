@@ -3,7 +3,7 @@
 <div mat-dialog-content>
 
     <div class="container">
-        <form [formGroup]="dimensionForm" (ngSubmit)="onFormSubmit()">
+        <form [formGroup]="dimensionForm">
             <div>
                 <label for="companyName">Company Name *</label><br><br>
                 <input type="text" id="companyName" formControlName="companyName" class="form-control form-rounded" /><br>
@@ -28,16 +28,18 @@
                 <div *ngIf="dimensionForm.get('dimensionValue')?.invalid && dimensionForm.get('dimensionValue')?.touched">
                     <div id="errors" *ngIf="dimensionForm.get('dimensionValue')?.errors?.required">Dimension Value is required !</div>
                     <div id="errors" *ngIf="dimensionForm.get('dimensionValue')?.errors?.pattern">Please enter a valid number !</div>
+                    <div id="errors" *ngIf="dimensionForm.get('dimensionValue')?.errors?.min || dimensionForm.get('dimensionValue')?.errors?.max">
+                        Dimension Value must be between 0 and 100 !
+                    </div>
                 </div>
             </div>
 
-            <!-- <button type="submit" [disabled]="dimensionForm.invalid">Submit</button> -->
 
         </form>
     </div>
 
 </div>
 <div mat-dialog-actions>
-    <button class="AddButton" id="AddButton" role="button">Add</button>&nbsp;&nbsp;&nbsp;
-    <button class="CloseButton" id="CloseButton" role="button">Close</button>
+    <button class="AddButton" id="AddButton" role="button" (click)="submit()">Add</button>&nbsp;&nbsp;&nbsp;
+    <button class="CloseButton" id="CloseButton" role="button" mat-dialog-close>Close</button>
 </div>

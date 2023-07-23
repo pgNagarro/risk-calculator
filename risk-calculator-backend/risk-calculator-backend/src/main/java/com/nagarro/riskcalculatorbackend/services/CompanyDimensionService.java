@@ -3,6 +3,7 @@ package com.nagarro.riskcalculatorbackend.services;
 import java.io.IOException;
 import java.util.List;
 
+import com.nagarro.riskcalculatorbackend.dtos.CompanyDimensionDto;
 import com.nagarro.riskcalculatorbackend.models.CompanyDimension;
 
 /**
@@ -14,13 +15,13 @@ public interface CompanyDimensionService {
 
 	List<CompanyDimension> getAllCompanyDimension();
 	
-	void saveCompanyDimension(CompanyDimension companyDimension) throws IOException;
+	void saveCompanyDimension(CompanyDimensionDto companyDimensionDto) throws IOException;
 	
-	CompanyDimension getCompanyDimensionByCompanyName(String companyName) throws IOException;
+	CompanyDimensionDto getCompanyDimensionByCompanyName(String companyName) throws IOException;
 	
-	CompanyDimension updateCompanyDimension(CompanyDimension companyDimension);
+	CompanyDimensionDto updateCompanyDimension(CompanyDimensionDto companyDimensionDto);
 	
-	void deleteCompanyDimension(CompanyDimension companyDimension);
+	void deleteCompanyDimension(CompanyDimensionDto companyDimensionDto);
 	
 	boolean checkDataIfPresent(CompanyDimension companyDimension);
 }

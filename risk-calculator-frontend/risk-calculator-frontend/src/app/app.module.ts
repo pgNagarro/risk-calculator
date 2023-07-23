@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AddCompanyDimensionComponent } from './components/add-company-dimension/add-company-dimension.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { UpdateCompanyDimensionComponent } from './components/update-company-dimension/update-company-dimension.component';
 
 
 
@@ -31,7 +32,8 @@ import {MatIconModule} from '@angular/material/icon';
     CalculationLogicComponent,
     ScoreLevelComponent,
     ScoreCapComponent,
-    AddCompanyDimensionComponent
+    AddCompanyDimensionComponent,
+    UpdateCompanyDimensionComponent,
   ],
   imports: [
     BrowserModule,
