@@ -6,12 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
+  
 
-  showCompanyDimension=false;
-  showDimensionWeight=false;
-  showCalculationLogic=false;
-  showScoreLevel=false;
-  showScoreCap=false;
+  showCompanyDimension=true;
+  showDimensionWeight=true;
+  showCalculationLogic=true;
+  showScoreLevel=true;
+  showScoreCap=true;
 
   constructor() { }
 

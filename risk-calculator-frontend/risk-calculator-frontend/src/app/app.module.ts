@@ -18,7 +18,10 @@ import { AddCompanyDimensionComponent } from './components/add-company-dimension
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { UpdateCompanyDimensionComponent } from './components/update-company-dimension/update-company-dimension.component';
-
+import { AddDimensionWeightComponent } from './components/add-dimension-weight/add-dimension-weight.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { CompanyDimensionService } from './services/company-dimension.service';
 
 
 
@@ -34,6 +37,7 @@ import { UpdateCompanyDimensionComponent } from './components/update-company-dim
     ScoreCapComponent,
     AddCompanyDimensionComponent,
     UpdateCompanyDimensionComponent,
+    AddDimensionWeightComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,8 +49,10 @@ import { UpdateCompanyDimensionComponent } from './components/update-company-dim
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    MatCardModule,
   ],
-  providers: [],
+  providers: [CompanyDimensionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,15 +5,15 @@
         <td>
             <mat-dialog-actions>
 
-                <button mat-raised-button class="addButton">Add data</button></mat-dialog-actions>
+                <button mat-raised-button class="addButton" (click)="openPopup()">Add data</button></mat-dialog-actions>
         </td>
+
     </div><br>
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
             <tr>
                 <th>Dimension</th>
                 <th>Weight(%)</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>

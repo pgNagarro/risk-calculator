@@ -203,7 +203,6 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService{
 		
 		companyDimension.setCompanyName(companyDimensionDto.getCompanyName());
 		companyDimension.setDimensions(companyDimensionDto.getDimensions());
-		System.out.println("hwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"+companyDimensionDto.getDimensions());
 		companyDimensionRepository.save(companyDimension);
 		
 		return companyDimensionDto;

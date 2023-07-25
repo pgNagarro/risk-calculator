@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CompanyDimensionService } from 'src/app/services/company-dimension.service';
 
@@ -14,36 +14,38 @@ import { UpdateCompanyDimensionComponent } from '../update-company-dimension/upd
 export class CompanyDimensionComponent implements OnInit {
   @ViewChild('tableRef', { static: true }) tableRef!: ElementRef<HTMLTableElement>;
 
-  companyDimension:any;
+  companyDimension: any;
 
-  constructor(private dialog:MatDialog, private router:Router, private service:CompanyDimensionService) { }
+  constructor(private dialog: MatDialog, private router: Router, private service: CompanyDimensionService) { }
 
   ngOnInit(): void {
 
     let cds = this.service.getCompanyDimension();
-    cds.subscribe((data)=>{
-      this.companyDimension=data;
+    cds.subscribe((data) => {
+      this.companyDimension = data;
       this.generateCompanyDimensionTable(this.companyDimension);
     })
   }
 
-  generateCompanyDimensionTable(_output:any){
+  generateCompanyDimensionTable(_output: any) {
     console.log(_output);
     const table = this.tableRef.nativeElement;
 
     const thead = document.createElement('thead');
+   
     const headerRow = document.createElement('tr');
+    headerRow.setAttribute('style','font-size:larger;');
     const name = document.createElement('th');
-      name.textContent = 'Company Name';
-      headerRow.appendChild(name);
+    name.textContent = 'Company Name';
+    headerRow.appendChild(name);
 
-    for(const val of _output[0].dimensions){
+    for (const val of _output[0].dimensions) {
       const header = document.createElement('th');
       header.textContent = val.dimensionName;
       headerRow.appendChild(header);
     }
     const actions = document.createElement('th');
-    actions.textContent='Actions';
+    actions.textContent = 'Actions';
     headerRow.appendChild(actions);
     thead.appendChild(headerRow);
 
@@ -52,56 +54,58 @@ export class CompanyDimensionComponent implements OnInit {
       const row = document.createElement('tr');
       const cname = document.createElement('td');
       cname.textContent = val.companyName;
+      row.setAttribute('style','font-size:larger;');
       row.appendChild(cname);
-      for(const ele of val.dimensions){
+      for (const ele of val.dimensions) {
         const value = document.createElement('td');
         value.textContent = ele.dimensionValue;
         row.appendChild(value);
       }
 
       const updateButton = document.createElement('button');
-      updateButton.textContent='Update';
-      updateButton.setAttribute('class','btn btn-info');
-      updateButton.setAttribute('style','background-color:#0ed9ff;');
-      updateButton.addEventListener('click',()=>{
-        //this.router.navigate(['update-risk-score',val.companyName]);
+      updateButton.textContent = 'Update';
+      updateButton.setAttribute('class', 'btn btn-info');
+      updateButton.setAttribute('style', 'margin-bottom: 4px; margin-top: 4px;margin-left: 10px; background-color: #c2fbd7;border-radius: 100px;box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;color: green ;cursor: rgb(0, 64, 124)ter;display: inline-block;font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;padding: 7px 20px;text-align: center;text-decoration: none;transition: all 250ms;border: 0;font-size: 16px;user-select: none;-webkit-user-select: none;touch-action: manipulation;');
+
+      updateButton.addEventListener('click', () => {
         this.openUpdatePopup(val.companyName);
       });
       const deleteButton = document.createElement('button');
-      deleteButton.textContent='Delete';
-      deleteButton.setAttribute('class','btn btn-danger');
-      deleteButton.setAttribute('style','margin-left: 10px; background-color:#dc3545;color:white;');
-      deleteButton.addEventListener('click',()=>{
-          this.service.deleteDimension(val.companyName).subscribe(data=>{
-              this.generateCompanyDimensionTable(_output);
-              // this.router.navigate(['/view']);
-          });
+      deleteButton.textContent = 'Delete';
+      deleteButton.setAttribute('class', 'DeleteButton');
+      deleteButton.setAttribute('style', 'margin-bottom: 4px; margin-top: 4px;margin-left: 10px; background-color: #fbc2c2;border-radius: 100px;box-shadow: rgba(187, 44, 44, 0.2) 0 -25px 18px -14px inset, rgba(187, 44, 44, 0.15) 0 1px 2px, rgba(187, 44, 44, 0.15) 0 2px 4px, rgba(187, 44, 44, 0.15) 0 4px 8px, rgba(187, 44, 44, 0.15) 0 8px 16px, rgba(187, 44, 44, 0.15) 0 16px 32px;color: red;cursor: pointer;display: inline-block;font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;padding: 7px 20px;text-align: center;text-decoration: none;transition: all 250ms;border: 0;font-size: 16px;user-select: none;-webkit-user-select: none;touch-action: manipulation;');
+      
+      
+      deleteButton.addEventListener('click', () => {
+        this.service.deleteDimension(val.companyName).subscribe(data => {
+          this.generateCompanyDimensionTable(_output);
+        });
       });
       row.appendChild(updateButton);
       row.appendChild(deleteButton);
 
       tbody.appendChild(row);
     }
-    thead.setAttribute("class","table-dark");
+    thead.setAttribute("class", "table-dark");
     table.appendChild(thead);
     table.appendChild(tbody);
   }
 
-  
-  openPopup(){
-    this.dialog.open(AddCompanyDimensionComponent,{
-      width:'35%',
-      height:'70%',
+
+  openPopup() {
+    this.dialog.open(AddCompanyDimensionComponent, {
+      width: '35%',
+      height: '70%',
       panelClass: 'custom-dialog'
     })
   }
 
 
-  openUpdatePopup(cName:string){
-    this.dialog.open(UpdateCompanyDimensionComponent,{
-      data:cName,
-      width:'35%',
-      height:'70%',
+  openUpdatePopup(cName: string) {
+    this.dialog.open(UpdateCompanyDimensionComponent, {
+      data: cName,
+      width: '35%',
+      height: '70%',
       panelClass: 'custom-dialog'
     })
   }

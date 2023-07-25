@@ -7,13 +7,14 @@ import { Dimension } from 'src/app/models/Dimension';
 import { CompanyDimensionService } from 'src/app/services/company-dimension.service';
 
 
+
 @Component({
   selector: 'app-add-company-dimension',
   templateUrl: './add-company-dimension.component.html',
   styleUrls: ['./add-company-dimension.component.css']
 })
 export class AddCompanyDimensionComponent implements OnInit {
-
+  
   companyDimension : CompanyDimension;
 
   dimensionForm!: FormGroup;
@@ -80,7 +81,7 @@ export class AddCompanyDimensionComponent implements OnInit {
       console.log(this.companyDimension);
       console.log(data);
       this.ref.close();
-     // this.router.navigate(['/view']);
+     window.location.reload();
     },error=>console.error(error));
 
   }

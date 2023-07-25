@@ -12,6 +12,7 @@ import com.nagarro.riskcalculatorbackend.models.CompanyDimension;
  * @author parasgautam
  *
  */
+
 public interface CompanyDimensionRepository extends JpaRepository<CompanyDimension, Integer> {
 	
 	public List<CompanyDimension> findByCompanyName(String name);

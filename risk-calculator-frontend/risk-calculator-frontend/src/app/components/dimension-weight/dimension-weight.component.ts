@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AddDimensionWeightComponent } from '../add-dimension-weight/add-dimension-weight.component';
 
 @Component({
   selector: 'app-dimension-weight',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DimensionWeightComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  openPopup(){
+    this.dialog.open(AddDimensionWeightComponent, {
+      width: '50%',
+      height: '85%',
+      panelClass: 'custom-dialog'
+    })
   }
 
 }

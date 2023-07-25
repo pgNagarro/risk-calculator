@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyDimension } from 'src/app/models/CompanyDimension';
 import { CompanyDimensionService } from 'src/app/services/company-dimension.service';
-import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-update-company-dimension',
@@ -13,15 +13,15 @@ import { NgForm } from '@angular/forms';
 })
 export class UpdateCompanyDimensionComponent implements OnInit {
 
+
   companyName:string;
   companyDimension: CompanyDimension;
 
 
   constructor(private service:CompanyDimensionService,@Inject(MAT_DIALOG_DATA) public data: string, private route:ActivatedRoute,
-  private router:Router) {}
+  private router:Router,private ref:MatDialogRef<UpdateCompanyDimensionComponent>) {}
 
   ngOnInit(): void {
-    // this.companyName = this.route.snapshot.params['companyName'];
     this.companyName = this.data;
    
       this.service.getDimensionByCompanyName(this.companyName).subscribe(data=>{
@@ -31,11 +31,10 @@ export class UpdateCompanyDimensionComponent implements OnInit {
 
   submit() {
       this.service.updateDimension(this.companyName,this.companyDimension).subscribe(data=>{
-        // this.router.navigate(['/view']);
-        this.router.navigate(['/view']);
+        this.ref.close();
+        window.location.reload();
         console.log(this.companyName+"fdsafsdafsda"+this.companyDimension.dimensions[0].dimensionValue);
       });
+      
   }
-
-
 }
