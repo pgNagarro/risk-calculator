@@ -21,14 +21,14 @@ export class ScoreLevelService {
 
   
   getRiskScoreLevelByScore(score:string):Observable<ScoreLevel>{
-    return this.http.get<ScoreLevel>(this.baseURL+"/risk-score-level/"+score);
+    return this.http.get<ScoreLevel>(this.baseURL+"/score-level/"+score);
 }
 
 updateRiskScoreLevel(score:string,riskScoreLevel:ScoreLevel):Observable<Object>{
-  return this.http.put(this.baseURL+"/risk-score-level/"+score,riskScoreLevel);
+  return this.http.put(this.baseURL+"/score-level/"+score,riskScoreLevel);
 }
 
 deleteRiskScoreLevel(score:string):Observable<Object>{
-  return this.http.delete(this.baseURL+"/risk-score-level/"+score);
+  return this.http.delete(this.baseURL+"/score-level/"+score);
 }
 }

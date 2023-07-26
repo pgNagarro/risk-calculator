@@ -49,22 +49,54 @@ public class ScoreLevelServiceImpl implements ScoreLevelService{
 		return scoreLevelDto;
 	}
 	
+	
+
+	@Override
+	public ScoreLevelDto getScoreLevelByScore(String score) throws IOException {
+		
+		logger.info("start : getScoreLevelByScore");
+		
+		ScoreLevel riskScoreLevels = scoreLevelRepository.findByScore(score);
+		
+		if(riskScoreLevels==null) {
+			throw new IOException("Risk Score Level not found");
+		}
+		 
+		
+		return convertEntityToDto(riskScoreLevels);
+	}
+	
+	
+	@Override
+	public ScoreLevelDto updateScoreLevel(ScoreLevelDto scoreLevelDto) {
+		
+		logger.info("start : updateScoreLevel");
+		
+		ScoreLevel newScoreLevel = scoreLevelRepository.findByScore(scoreLevelDto.getScore());
+		
+		newScoreLevel.setLevel(scoreLevelDto.getLevel());
+		
+		scoreLevelRepository.save(newScoreLevel);
+		
+		return convertEntityToDto(newScoreLevel);
+	}
+
+	@Override
+	public void deleteScoreLevel(ScoreLevelDto scoreLevelDto) {
+		
+		logger.info("start : deleteRiskScoreLevel");
+		
+		scoreLevelRepository.deleteById(scoreLevelDto.getScore());	
+
+	}
+
 	private ScoreLevel convertDtoToEntity(ScoreLevelDto scoreLevelDto) {
 		return new ScoreLevel(scoreLevelDto.getScore(),scoreLevelDto.getLevel());
 	}
-
-	@Override
-	public ScoreLevel getScoreLevelByScore(String score) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private ScoreLevelDto convertEntityToDto(ScoreLevel scoreLevel) {
+		return new ScoreLevelDto(scoreLevel.getScore(),scoreLevel.getLevel());
 	}
-
-	@Override
-	public void deleteScoreLevel(ScoreLevel scoreLevel) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 
 }

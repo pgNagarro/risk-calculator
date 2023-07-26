@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>
+    Please provide the details below :
+</h1><br>
+
+<div mat-dialog-content>
+    <div class="container">
+        <form #form="ngForm">
+            <label for="score">Score : {{ scoreLevel?.score }}</label><br><br>
+
+            <label for="level">Level *</label><br><br>
+            <input class="form-control form-rounded" type="text" id="level" name="level" required [(ngModel)]="levelValue"><br>
+            <!-- Notice the use of the safe navigation operator ? above -->
+
+            <!-- Add any additional fields or validations as needed -->
+        </form>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button class="AddButton" id="AddButton" role="button" (click)="submit()">Add</button>&nbsp;&nbsp;&nbsp;
+    <button class="CloseButton" id="CloseButton" role="button" mat-dialog-close>Close</button>
+</div>

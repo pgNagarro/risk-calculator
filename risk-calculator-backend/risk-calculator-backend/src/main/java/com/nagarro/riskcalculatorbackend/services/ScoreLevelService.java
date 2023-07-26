@@ -17,8 +17,10 @@ public interface ScoreLevelService {
 
 	ScoreLevelDto saveScoreLevel(ScoreLevelDto scoreLevelDto);
 
-	ScoreLevel getScoreLevelByScore(String score) throws IOException;
+	ScoreLevelDto getScoreLevelByScore(String score) throws IOException;
 	
-	void deleteScoreLevel(ScoreLevel scoreLevel);
+	ScoreLevelDto updateScoreLevel(ScoreLevelDto scoreLevelDto);
+	
+	void deleteScoreLevel(ScoreLevelDto scoreLevelDto);
 
 }

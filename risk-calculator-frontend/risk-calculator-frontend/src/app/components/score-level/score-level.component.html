@@ -22,8 +22,8 @@
                 <td>{{val.score}}</td>
                 <td>{{val.level}}</td>
                 <td>
-                    <button class="UpdateButton">Update</button>
-                    <button class="DeleteButton" style="margin-left: 10px;">Delete</button>
+                    <button class="UpdateButton" (click)="openUpdatePopup(val.score)">Update</button>
+                    <button class="DeleteButton" style="margin-left: 10px;" (click)="onDelete(val.score)">Delete</button>
                 </td>
             </tr>
         </tbody>

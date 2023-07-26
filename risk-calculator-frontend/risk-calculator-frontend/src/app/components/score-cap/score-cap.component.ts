@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddScoreCapComponent } from '../add-score-cap/add-score-cap.component';
 
 @Component({
   selector: 'app-score-cap',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScoreCapComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  openPopup(){
+      this.dialog.open(AddScoreCapComponent,{
+        width: '35%',
+        height: '60%',
+        panelClass: 'custom-dialog'
+      });
   }
 
 }

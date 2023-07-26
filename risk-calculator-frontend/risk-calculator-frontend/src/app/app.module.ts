@@ -25,6 +25,8 @@ import { CompanyDimensionService } from './services/company-dimension.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AddScoreLevelComponent } from './components/add-score-level/add-score-level.component';
+import { AddScoreCapComponent } from './components/add-score-cap/add-score-cap.component';
+import { UpdateScoreLevelComponent } from './components/update-score-level/update-score-level.component';
 
 
 
@@ -42,6 +44,8 @@ import { AddScoreLevelComponent } from './components/add-score-level/add-score-l
     UpdateCompanyDimensionComponent,
     AddDimensionWeightComponent,
     AddScoreLevelComponent,
+    AddScoreCapComponent,
+    UpdateScoreLevelComponent,
   ],
   imports: [
     BrowserModule,

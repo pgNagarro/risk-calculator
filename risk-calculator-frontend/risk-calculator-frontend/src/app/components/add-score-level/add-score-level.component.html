@@ -5,10 +5,10 @@
     <div class="container">
         <form #form="ngForm">
             <label for="lowerRange">Lower Range *</label><br><br>
-            <input class="form-control form-rounded" type="number" id="lowerRange" name="lowerRange" required [(ngModel)]="formData.lowerRange"><br>
+            <input class="form-control form-rounded" type="number" id="lowerRange" name="lowerRange" required [(ngModel)]="formData.lowerRange" pattern="^[1-9][0-9]?$|^100$"><br>
 
             <label for="upperRange">Upper Range *</label><br><br>
-            <input class="form-control form-rounded" type="number" id="upperRange" name="upperRange" required [(ngModel)]="formData.upperRange"><br>
+            <input class="form-control form-rounded" type="number" id="upperRange" name="upperRange" required [(ngModel)]="formData.upperRange" pattern="^[1-9][0-9]?$|^100$"><br>
 
             <label for="level">Level *</label><br><br>
             <input class="form-control form-rounded" type="text" id="level" name="level" required [(ngModel)]="formData.level"><br>

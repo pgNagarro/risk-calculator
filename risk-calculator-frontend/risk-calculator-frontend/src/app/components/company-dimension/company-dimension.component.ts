@@ -95,7 +95,7 @@ export class CompanyDimensionComponent implements OnInit {
   openPopup() {
     this.dialog.open(AddCompanyDimensionComponent, {
       width: '35%',
-      height: '70%',
+      height: '80%',
       panelClass: 'custom-dialog'
     })
   }
