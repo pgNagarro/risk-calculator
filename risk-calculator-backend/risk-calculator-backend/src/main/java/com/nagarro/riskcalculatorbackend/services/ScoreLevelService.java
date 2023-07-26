@@ -3,6 +3,7 @@ package com.nagarro.riskcalculatorbackend.services;
 import java.io.IOException;
 import java.util.List;
 
+import com.nagarro.riskcalculatorbackend.dtos.ScoreLevelDto;
 import com.nagarro.riskcalculatorbackend.models.ScoreLevel;
 
 /**
@@ -14,7 +15,7 @@ public interface ScoreLevelService {
 	
 	List<ScoreLevel> getAllRiskScoreLevel();
 
-	ScoreLevel saveScoreLevel(ScoreLevel scoreLevel);
+	ScoreLevelDto saveScoreLevel(ScoreLevelDto scoreLevelDto);
 
 	ScoreLevel getScoreLevelByScore(String score) throws IOException;
 	

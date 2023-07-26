@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ScoreLevelService } from 'src/app/services/score-level.service';
 import { AddScoreLevelComponent } from '../add-score-level/add-score-level.component';
 
 @Component({
@@ -10,9 +11,13 @@ import { AddScoreLevelComponent } from '../add-score-level/add-score-level.compo
 })
 export class ScoreLevelComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private router: Router) { }
+  scoreLevels:any;
+  constructor(private dialog: MatDialog, private router: Router, private service:ScoreLevelService) { }
 
   ngOnInit(): void {
+    this.service.getRiskScoreLevel().subscribe((data)=>{
+      this.scoreLevels=data;
+    });
   }
 
   openPopup(){

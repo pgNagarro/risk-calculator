@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ScoreLevel } from 'src/app/models/ScoreLevel';
+import { ScoreLevelService } from 'src/app/services/score-level.service';
 
 @Component({
   selector: 'app-add-score-level',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddScoreLevelComponent implements OnInit {
 
+  scoreLevel:ScoreLevel;
+
   formData: any = {};
 
-  constructor() { }
+  constructor(private service:ScoreLevelService) { }
 
   ngOnInit(): void {
   }
@@ -20,6 +24,11 @@ export class AddScoreLevelComponent implements OnInit {
       // Convert lowerRange and upperRange to a string in the format '1-20'
       this.formData.range = this.formData.lowerRange + '-' + this.formData.upperRange;
       console.log(this.formData.range);
+      this.scoreLevel = new ScoreLevel(this.formData.range,this.formData.level);
+
+      this.service.addRiskScoreLevel(this.scoreLevel).subscribe((data)=>{
+        console.log(data);
+      });
 
       // Process the form data or submit it to the server
       console.log('Form submitted successfully!', this.formData);

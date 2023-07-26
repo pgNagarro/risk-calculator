@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.nagarro.riskcalculatorbackend.dtos.ScoreLevelDto;
 import com.nagarro.riskcalculatorbackend.models.ScoreLevel;
 import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
 
@@ -32,7 +36,7 @@ private static final Logger logger = LoggerFactory.getLogger(ScoreLevelControlle
 	 * Method to get all score level data
 	 * @return
 	 */
-	@GetMapping("/score-level")
+	@GetMapping("/all-score-level")
 	public ResponseEntity<List<ScoreLevel>> getRiskScoreLevel(){
 		
 		logger.info("Request received for fetching all the risk score level data");
@@ -42,6 +46,25 @@ private static final Logger logger = LoggerFactory.getLogger(ScoreLevelControlle
 		logger.info("Request completed for fetching all the risk score level data");
 		
 		return ResponseEntity.ok(scoreLevelList);
+		
+	}
+	
+	
+	/**
+	 * Method to saving score level data
+	 * @param riskScoreLevel
+	 * @return
+	 */
+	@PostMapping("/add-score-level")
+	public ResponseEntity<ScoreLevelDto> saveRiskScoreLevel(@RequestBody ScoreLevelDto scoreLevelDto) {
+		
+		logger.info("Request received for adding risk score level data");
+		
+		ScoreLevelDto newRiskScoreLevelDto = scoreLevelService.saveScoreLevel(scoreLevelDto);
+		
+		logger.info("Request completed for adding risk score level data");
+		
+		return ResponseEntity.ok(newRiskScoreLevelDto);
 		
 	}
 

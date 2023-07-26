@@ -18,14 +18,14 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <tr *ngFor="let val of riskScoreLevels">
+            <tr *ngFor="let val of scoreLevels">
                 <td>{{val.score}}</td>
                 <td>{{val.level}}</td>
                 <td>
-                    <button (click)="updateRiskScoreLevel(val.score)" class="btn btn-info">Update</button>
-                    <button (click)="deleteRiskScoreLevel(val.score)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+                    <button class="UpdateButton">Update</button>
+                    <button class="DeleteButton" style="margin-left: 10px;">Delete</button>
                 </td>
-            </tr> -->
+            </tr>
         </tbody>
 
     </table>

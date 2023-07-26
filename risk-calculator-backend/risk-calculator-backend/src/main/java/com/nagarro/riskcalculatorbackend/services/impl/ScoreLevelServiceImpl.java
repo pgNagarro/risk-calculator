@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.nagarro.riskcalculatorbackend.dtos.ScoreLevelDto;
 import com.nagarro.riskcalculatorbackend.models.ScoreLevel;
 import com.nagarro.riskcalculatorbackend.repositories.ScoreLevelRepository;
 import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
@@ -40,9 +40,17 @@ public class ScoreLevelServiceImpl implements ScoreLevelService{
 	}
 
 	@Override
-	public ScoreLevel saveScoreLevel(ScoreLevel scoreLevel) {
+	public ScoreLevelDto saveScoreLevel(ScoreLevelDto scoreLevelDto) {
 		// TODO Auto-generated method stub
-		return null;
+		ScoreLevel scoreLevel = convertDtoToEntity(scoreLevelDto);
+				
+		scoreLevelRepository.save(scoreLevel);
+		
+		return scoreLevelDto;
+	}
+	
+	private ScoreLevel convertDtoToEntity(ScoreLevelDto scoreLevelDto) {
+		return new ScoreLevel(scoreLevelDto.getScore(),scoreLevelDto.getLevel());
 	}
 
 	@Override
