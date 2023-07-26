@@ -1,25 +1,24 @@
 package com.nagarro.riskcalculatorbackend.dtos;
 
 
-import java.util.List;
-
-import com.nagarro.riskcalculatorbackend.models.DimensionWeight;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * DTO class for dimension weight
+ * Score Level Dto
  * @author parasgautam
  *
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DimensionWeightDto {
+public class ScoreLevelDto {
 
-	List<DimensionWeight> dimensionWeights;
+	private String score;
 
+	private String level;
+	
 }
+

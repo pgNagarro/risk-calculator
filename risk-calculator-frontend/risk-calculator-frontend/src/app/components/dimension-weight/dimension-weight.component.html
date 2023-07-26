@@ -5,7 +5,7 @@
         <td>
             <mat-dialog-actions>
 
-                <button mat-raised-button class="addButton" (click)="openPopup()">Add data</button></mat-dialog-actions>
+                <button mat-raised-button class="addButton" (click)="openPopup()">Add/Update data</button></mat-dialog-actions>
         </td>
 
     </div><br>
@@ -17,14 +17,10 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <tr *ngFor="let val of riskDimensions">
+            <tr *ngFor="let val of dimensionWeights">
                 <td>{{val.dimension}}</td>
                 <td>{{val.weight}}</td>
-                <td>
-                    <button (click)="updateRiskDimension(val.dimension)" class="btn btn-info">Update</button>
-                    <button (click)="deleteRiskDimension(val.dimension)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
-                </td>
-            </tr> -->
+
         </tbody>
 
     </table>

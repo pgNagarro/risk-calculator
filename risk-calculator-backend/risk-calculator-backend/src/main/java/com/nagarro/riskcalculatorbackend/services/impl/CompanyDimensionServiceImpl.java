@@ -29,7 +29,6 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService{
 	@Autowired
 	private CompanyDimensionRepository companyDimensionRepository;
 	
-	
 
 	/**
 	 *  Method for getting all company dimension data

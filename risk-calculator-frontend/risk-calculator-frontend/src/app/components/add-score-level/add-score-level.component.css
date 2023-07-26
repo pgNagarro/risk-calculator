@@ -4,59 +4,6 @@
 
 /* Base Styles */
 
-
-/* app.component.css */
-
-mat-form-field {
-    width: 100%;
-}
-
-mat-select {
-    min-width: 200px;
-    max-width: 400px;
-    font-size: 16px;
-    background-color: #f5f5f5;
-    padding: 12px 16px;
-    /* Add some padding to the select box */
-    border-radius: 4px;
-    /* Round the corners */
-    border: 1px solid #ccc;
-    /* Add a border */
-}
-
-
-/* Style the selected option */
-
-.mat-select-value-text {
-    font-size: 16px;
-    color: #333;
-    /* Text color */
-}
-
-
-/* Style the dropdown arrow */
-
-.mat-select-arrow {
-    color: #555;
-    /* Arrow color */
-}
-
-
-/* Style the options */
-
-.mat-option {
-    font-size: 16px;
-    padding: 8px 16px;
-    /* Add some padding to the options */
-}
-
-
-/* Add some space between the options */
-
-.mat-option+.mat-option {
-    margin-top: 8px;
-}
-
 .AddButton {
     background-color: #c2fbd7;
     border-radius: 100px;
@@ -110,17 +57,21 @@ h1 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-#dimensionName {
+label {
     font-size: x-large;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-#companyName {
+#lowerRange {
     border-radius: 1rem;
     width: 100%;
 }
 
-#weight {
+#upperRange {
+    border-radius: 1rem;
+}
+
+#level {
     border-radius: 1rem;
 }
 

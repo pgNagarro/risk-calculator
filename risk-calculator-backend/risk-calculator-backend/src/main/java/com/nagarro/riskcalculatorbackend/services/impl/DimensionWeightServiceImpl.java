@@ -40,32 +40,24 @@ public class DimensionWeightServiceImpl implements DimensionWeightService{
 	public DimensionWeightDto saveDimensionWeight(DimensionWeightDto dimensionWeightDto) throws IOException {
 		
 		logger.info("start : saveDimensionWeight"); 
-		
-		DimensionWeight dimensionWeight = convertDtoToEntity(dimensionWeightDto);
-	
-		dimensionWeightRepository.save(dimensionWeight);
+				
+		try {
+	        // Begin a transaction here if necessary
+	        dimensionWeightRepository.deleteAll();
+	        
+	        for(int i=0;i<dimensionWeightDto.getDimensionWeights().size();i++) {
+	        	dimensionWeightRepository.save(dimensionWeightDto.getDimensionWeights().get(i));
+	        }
+
+	        // Commit the transaction if applicable
+	    } catch (Exception e) {
+	        // Rollback the transaction if applicable
+	        logger.error("Error while saving DimensionWeight: " + e.getMessage());
+	        throw new IOException("Failed to save DimensionWeight. Please check logs for details.");
+	    }
 		
 		return dimensionWeightDto;
 		
 	}
-	
-	
-
-	@Override
-	public DimensionWeight getDimensionWeightById(String dimension) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteDimensionWeight(DimensionWeight dimensionWeight) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private DimensionWeight convertDtoToEntity(DimensionWeightDto dimensionWeightDto) {
-		return new DimensionWeight(dimensionWeightDto.getDimension(),dimensionWeightDto.getWeight());
-	}
-	
 
 }

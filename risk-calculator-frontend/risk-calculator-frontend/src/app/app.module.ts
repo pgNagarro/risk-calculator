@@ -22,6 +22,9 @@ import { AddDimensionWeightComponent } from './components/add-dimension-weight/a
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { CompanyDimensionService } from './services/company-dimension.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { AddScoreLevelComponent } from './components/add-score-level/add-score-level.component';
 
 
 
@@ -38,6 +41,7 @@ import { CompanyDimensionService } from './services/company-dimension.service';
     AddCompanyDimensionComponent,
     UpdateCompanyDimensionComponent,
     AddDimensionWeightComponent,
+    AddScoreLevelComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,8 @@ import { CompanyDimensionService } from './services/company-dimension.service';
     ReactiveFormsModule,
     MatSelectModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [CompanyDimensionService],
   bootstrap: [AppComponent]

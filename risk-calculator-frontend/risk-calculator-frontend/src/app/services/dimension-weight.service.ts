@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DimensionWeight } from '../models/DimensionWeight';
+import { DimensionWeights } from '../models/DimensionWeights';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class DimensionWeightService {
     return this.http.get(this.baseURL+"/all-dimension-weight");
   }
 
-  addDimensionWeight(dimensionWeight: DimensionWeight): Observable<Object>{
-    return this.http.post(this.baseURL+"/add-dimension-weight",dimensionWeight);
+  addDimensionWeight(dimensionWeights: DimensionWeights): Observable<Object>{
+    return this.http.post(this.baseURL+"/add-dimension-weight",dimensionWeights);
   }
 
   getDimensionWeightByDimension(dimension:string):Observable<DimensionWeight>{

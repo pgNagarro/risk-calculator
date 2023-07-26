@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Please provide the details below :</h1><br>
+
+<div mat-dialog-content>
+
+    <div class="container">
+        <form #form="ngForm">
+            <label for="lowerRange">Lower Range *</label><br><br>
+            <input class="form-control form-rounded" type="number" id="lowerRange" name="lowerRange" required [(ngModel)]="formData.lowerRange"><br>
+
+            <label for="upperRange">Upper Range *</label><br><br>
+            <input class="form-control form-rounded" type="number" id="upperRange" name="upperRange" required [(ngModel)]="formData.upperRange"><br>
+
+            <label for="level">Level *</label><br><br>
+            <input class="form-control form-rounded" type="text" id="level" name="level" required [(ngModel)]="formData.level"><br>
+
+            <!-- Add any additional fields or validations as needed -->
+
+
+        </form>
+    </div>
+
+</div>
+<div mat-dialog-actions>
+    <button class="AddButton" id="AddButton" role="button" (click)="onSubmit()">Add</button>&nbsp;&nbsp;&nbsp;
+    <button class="CloseButton" id="CloseButton" role="button" mat-dialog-close>Close</button>
+</div>

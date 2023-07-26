@@ -17,8 +17,5 @@ public interface DimensionWeightService {
 	
 	DimensionWeightDto saveDimensionWeight(DimensionWeightDto dimensionWeightDto) throws IOException;
 	
-	DimensionWeight getDimensionWeightById(String dimension) throws IOException;
-
-	void deleteDimensionWeight(DimensionWeight dimensionWeight);
 
 }

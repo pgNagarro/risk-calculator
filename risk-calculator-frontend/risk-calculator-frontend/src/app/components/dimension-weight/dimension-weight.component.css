@@ -52,3 +52,11 @@ h1 {
 ::ng-deep .custom-dialog>mat-dialog-container {
     background-color: white;
 }
+
+thead {
+    font-size: larger;
+}
+
+tr {
+    font-size: larger;
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DimensionWeightService } from 'src/app/services/dimension-weight.service';
 import { AddDimensionWeightComponent } from '../add-dimension-weight/add-dimension-weight.component';
 
 @Component({
@@ -10,9 +11,15 @@ import { AddDimensionWeightComponent } from '../add-dimension-weight/add-dimensi
 })
 export class DimensionWeightComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private router: Router) { }
+  dimensionWeights:any;
+
+  constructor(private dialog: MatDialog, private router: Router, private dimensionWeightService:DimensionWeightService) { }
 
   ngOnInit(): void {
+    this.dimensionWeightService.getDimensionWeight().subscribe((data)=>{
+        this.dimensionWeights=data;
+        console.log(this.dimensionWeights);
+    });
   }
 
   openPopup(){
