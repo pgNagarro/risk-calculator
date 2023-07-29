@@ -19,14 +19,14 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <tr *ngFor="let val of scoreCaps">
+            <tr *ngFor="let val of scoreCaps">
                 <td>{{val.condition}}</td>
                 <td>{{val.totalRiskCappedScore}}</td>
                 <td>
-                    <button (click)="updateScoreCap(val.condition)" class="btn btn-info">Update</button>
-                    <button (click)="deleteScoreCap(val.condition)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+                    <button class="UpdateButton" (click)="openUpdatePopup(val.condition)">Update</button>
+                    <button class="DeleteButton" style="margin-left: 10px;" (click)="onDelete(val.condition)">Delete</button>
                 </td>
-            </tr> -->
+            </tr>
         </tbody>
 
     </table>

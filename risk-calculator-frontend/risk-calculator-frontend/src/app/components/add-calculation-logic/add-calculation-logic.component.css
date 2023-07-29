@@ -67,7 +67,7 @@ label {
     width: 100%;
 }
 
-#numberOfLevels {
+#elementName {
     border-radius: 1rem;
 }
 
@@ -97,3 +97,114 @@ button {
 
 
 /* Optional: You can add more styles to enhance the appearance further */
+
+
+/* your-component.component.css */
+
+
+/* Style the select element */
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+
+/* Style the dropdown arrow icon (optional) */
+
+select::-ms-expand {
+    display: none;
+}
+
+select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
+/* Style the option elements */
+
+option {
+    font-size: 16px;
+    padding: 8px;
+    background-color: #fff;
+    color: #333;
+}
+
+
+/* Style the selected option */
+
+option:checked {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.text-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    background-color: #f0f0f0;
+    /* Additional styling properties can be added as needed */
+}
+
+
+/* Media query for screens with a maximum width of 600px */
+
+@media screen and (max-width: 600px) {
+    .text-box {
+        width: 100%;
+        /* Box will take full width of the container */
+    }
+}
+
+.operationButtons {
+    background-color: #111827;
+    border: 1px solid transparent;
+    border-radius: .75rem;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    flex: 0 0 auto;
+    font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    padding: .75rem 1.2rem;
+    text-align: center;
+    text-decoration: none #6B7280 solid;
+    text-decoration-thickness: auto;
+    transition-duration: .2s;
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+}
+
+.operationButtons:hover {
+    background-color: #374151;
+}
+
+.operationButtons:focus {
+    box-shadow: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+    .operationButtons {
+        padding: .75rem 1.5rem;
+    }
+}

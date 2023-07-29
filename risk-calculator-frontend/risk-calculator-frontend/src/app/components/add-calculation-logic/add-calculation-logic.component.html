@@ -1,0 +1,78 @@
+<!-- HTML Template -->
+<h1 mat-dialog-title>Please provide the details below :</h1><br>
+
+<div mat-dialog-content>
+    <div class="container">
+        <form [formGroup]="calculationLogicForm">
+            <div>
+                <label for="elementName">Element Name *</label><br><br>
+                <input class="form-control form-rounded" type="text" id="elementName" formControlName="elementName" /><br>
+                <div *ngIf="elementName?.invalid && (elementName?.dirty || elementName?.touched)" id="errors">
+                    <div *ngIf="elementName?.errors?.required ">Element Name is required.</div>
+                    <div *ngIf="elementName?.errors?.pattern ">Element Name should not contain numbers.</div>
+                </div>
+            </div>
+
+            <div *ngIf="formulaElements.length> 0">
+                <label for="formula">Formula:</label><br><br>
+                <div class="text-box">
+                    <p>{{formula}}</p>
+                </div>
+            </div>
+
+            <div>
+                <label for="dropdownOption">Select Formula Elements :</label><br><br>
+                <select id="dropdownOption" (change)="onElementSelect($event)">
+          <option value="">Select Element</option>
+          <option *ngFor="let option of dropdownOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+            </div>
+
+            <div>
+                <label for="operation">Select Operation:</label><br><br>
+                <select id="operation" (change)="onOperationSelect($event)">
+          <option value="">Select Operation</option>
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="/">/</option>
+          <option value="*">*</option>
+          <option value="%">%</option>
+          <option value="min">min</option>
+          <option value="max">max</option>
+        </select>
+            </div>
+
+            <div *ngIf="selectedOperation === 'min' || selectedOperation === 'max'">
+                <h3 for="option1">Select formula elements for {{selectedOperation}} operation:</h3>
+                <label for="option1">Option 1:</label><br><br>
+                <select id="option1" (change)="onMinOrMaxOptionSelect(1, $event)" [required]="selectedOperation === 'min' || selectedOperation === 'max'" formControlName="option1">
+                  <option value="">Select Option 1</option>
+                  <option *ngFor="let option of dropdownOptions" [value]="option.value">{{ option.label }}</option>
+                </select><br><br>
+                <div *ngIf="selectedOperation && calculationLogicForm.controls['option1'].invalid && (calculationLogicForm.controls['option1'].dirty || calculationLogicForm.controls['option1'].touched)">
+                    <div *ngIf="calculationLogicForm.controls['option1'].errors?.required">Option 1 is required.</div>
+                </div>
+
+                <label for="option2">Option 2:</label><br>
+                <select id="option2" (change)="onMinOrMaxOptionSelect(2, $event)" [required]="selectedOperation === 'min' || selectedOperation === 'max'" formControlName="option2">
+                  <option value="">Select Option 2</option>
+                  <option *ngFor="let option of dropdownOptions" [value]="option.value">{{ option.label }}</option>
+                </select><br>
+                <div *ngIf="selectedOperation && calculationLogicForm.controls['option2'].invalid && (calculationLogicForm.controls['option2'].dirty || calculationLogicForm.controls['option2'].touched)">
+                    <div *ngIf="calculationLogicForm.controls['option2'].errors?.required">Option 2 is required.</div>
+                </div><br>
+            </div>
+
+
+
+
+            <button (click)="updateFormula()" class="operationButtons">Update Formula</button>
+
+            <button *ngIf="formulaElements.length > 0" (click)="undoSelection()" class="operationButtons">Undo</button>
+        </form>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button class="AddButton" id="AddButton" role="button" (click)="onSubmit()">Add</button>&nbsp;&nbsp;&nbsp;
+    <button class="CloseButton" id="CloseButton" role="button" mat-dialog-close>Close</button>
+</div>

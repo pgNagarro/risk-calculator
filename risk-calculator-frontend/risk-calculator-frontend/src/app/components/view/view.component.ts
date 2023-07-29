@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedServiceService } from 'src/app/services/shared-service.service';
 
 @Component({
   selector: 'app-view',
@@ -14,9 +15,11 @@ export class ViewComponent implements OnInit {
   showScoreLevel=true;
   showScoreCap=true;
 
-  constructor() { }
+  constructor(private sharedService:SharedServiceService) { }
 
   ngOnInit(): void {
+  
+
   }
 
   companyDimension(){

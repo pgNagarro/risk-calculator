@@ -27,6 +27,9 @@ import { MatInputModule } from '@angular/material/input';
 import { AddScoreLevelComponent } from './components/add-score-level/add-score-level.component';
 import { AddScoreCapComponent } from './components/add-score-cap/add-score-cap.component';
 import { UpdateScoreLevelComponent } from './components/update-score-level/update-score-level.component';
+import { UpdateScoreCapComponent } from './components/update-score-cap/update-score-cap.component';
+import { AddCalculationLogicComponent } from './components/add-calculation-logic/add-calculation-logic.component';
+import { UpdateCalculationLogicComponent } from './components/update-calculation-logic/update-calculation-logic.component';
 
 
 
@@ -46,6 +49,9 @@ import { UpdateScoreLevelComponent } from './components/update-score-level/updat
     AddScoreLevelComponent,
     AddScoreCapComponent,
     UpdateScoreLevelComponent,
+    UpdateScoreCapComponent,
+    AddCalculationLogicComponent,
+    UpdateCalculationLogicComponent,
   ],
   imports: [
     BrowserModule,

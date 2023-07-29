@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { CompanyDimension } from 'src/app/models/CompanyDimension';
 import { Dimension } from 'src/app/models/Dimension';
 import { CompanyDimensionService } from 'src/app/services/company-dimension.service';
+import { SharedServiceService } from 'src/app/services/shared-service.service';
+import { ViewComponent } from '../view/view.component';
 
 
 
@@ -20,7 +22,7 @@ export class AddCompanyDimensionComponent implements OnInit {
   dimensionForm!: FormGroup;
 
   constructor(private fb: FormBuilder,private service:CompanyDimensionService, 
-    private router:Router,private ref:MatDialogRef<AddCompanyDimensionComponent>) { }
+    private router:Router,private ref:MatDialogRef<AddCompanyDimensionComponent>,private sharedService:SharedServiceService) { }
 
   ngOnInit() {
     this.createDimensionForm();
@@ -86,4 +88,7 @@ export class AddCompanyDimensionComponent implements OnInit {
 
   }
 
+ 
+
+  
 }

@@ -17,101 +17,85 @@ import lombok.AllArgsConstructor;
 
 /**
  * Service Implementation Class for Score Cap Service
- * @author parasgautam
- *
+ * This class provides implementation for managing ScoreCap objects.
+ * It interacts with the database through ScoreCapRepository to perform CRUD operations.
  */
 @Service
 @AllArgsConstructor
-public class ScoreCapServiceImpl implements ScoreCapService{
+public class ScoreCapServiceImpl implements ScoreCapService {
 
-	private static final Logger logger = LoggerFactory.getLogger(ScoreCapServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ScoreCapServiceImpl.class);
 
-	@Autowired
-	private ScoreCapRepository scoreCapRepository;
-	
+    @Autowired
+    private ScoreCapRepository scoreCapRepository;
 
-	/**
-	 * Method to get all score cap data
-	 */
-	@Override
-	public List<ScoreCap> getAllScoreCap() {
-		
-		logger.info("start : getAllScoreCap");
-		return scoreCapRepository.findAll();
-	}
+    /**
+     * Method to get all score cap data.
+     * @return A list of ScoreCap objects representing all the score caps in the database.
+     */
+    @Override
+    public List<ScoreCap> getAllScoreCap() {
+        logger.info("Fetching all ScoreCap data");
+        return scoreCapRepository.findAll();
+    }
 
-	
-	/**
-	 * Method to save score cap data
-	 */
-	@Override
-	public ScoreCapDto saveScoreCap(ScoreCapDto scoreCapDto) {
-		
-		logger.info("start : saveScoreCap");
-		
-		ScoreCap scoreCap = convertDtoToEntity(scoreCapDto);
-		
-		scoreCapRepository.save(scoreCap);
-		
-		return scoreCapDto;
-		
-	}
-	
+    /**
+     * Method to save score cap data.
+     * @param scoreCapDto The ScoreCapDto object to be saved.
+     * @return The saved ScoreCapDto object.
+     */
+    @Override
+    public ScoreCapDto saveScoreCap(ScoreCapDto scoreCapDto) {
+        logger.info("Saving ScoreCap data");
+        ScoreCap scoreCap = convertDtoToEntity(scoreCapDto);
+        scoreCapRepository.save(scoreCap);
+        return scoreCapDto;
+    }
 
-	/**
-	 * Method to single get score cap data by condition
-	 * @throws IOException 
-	 */
-	@Override
-	public ScoreCapDto getScoreCapByCondition(String condition) throws IOException {
-		
-		logger.info("start : getScoreCapByCondition");
-	
-		ScoreCap scoreCaps = scoreCapRepository.findByCondition(condition);
-		
-		return convertEntityToDto(scoreCaps);
-		
-	}
-	
+    /**
+     * Method to get score cap data by condition.
+     * @param condition The condition to be used for retrieving the score cap data.
+     * @return The ScoreCapDto object representing the score cap data.
+     * @throws IOException If an I/O error occurs during the operation.
+     */
+    @Override
+    public ScoreCapDto getScoreCapByCondition(String condition) throws IOException {
+        logger.info("Fetching ScoreCap data for condition: {}", condition);
+        ScoreCap scoreCaps = scoreCapRepository.findByCondition(condition);
+        return convertEntityToDto(scoreCaps);
+    }
 
-	@Override
-	public ScoreCapDto updateScoreCap(ScoreCapDto scoreCapDto) {
-			
-		logger.info("start : updateScoreCap");
-		
-		ScoreCap scoreCap = scoreCapRepository.findByCondition(scoreCapDto.getCondition());
-		
-		scoreCap.setTotalRiskCappedScore(scoreCapDto.getTotalRiskCappedScore());
-		
-		scoreCapRepository.save(scoreCap);
-		
-		return convertEntityToDto(scoreCap);
-	
-	}
-	
-	
+    /**
+     * Method to update score cap data.
+     * @param scoreCapDto The ScoreCapDto object containing the updated data.
+     * @return The updated ScoreCapDto object.
+     */
+    @Override
+    public ScoreCapDto updateScoreCap(ScoreCapDto scoreCapDto) {
+        logger.info("Updating ScoreCap data for condition: {}", scoreCapDto.getCondition());
+        ScoreCap scoreCap = scoreCapRepository.findByCondition(scoreCapDto.getCondition());
+        scoreCap.setTotalRiskCappedScore(scoreCapDto.getTotalRiskCappedScore());
+        scoreCapRepository.save(scoreCap);
+        return convertEntityToDto(scoreCap);
+    }
 
+    /**
+     * Method to delete score cap data.
+     * @param scoreCapDto The ScoreCapDto object representing the data to be deleted.
+     */
+    @Override
+    public void deleteScoreCap(ScoreCapDto scoreCapDto) {
+        logger.info("Deleting ScoreCap data for condition: {}", scoreCapDto.getCondition());
+        scoreCapRepository.deleteById(scoreCapDto.getCondition());
+    }
 
-	/**
-	 * Method to delete score cap data
-	 */
-	@Override
-	public void deleteScoreCap(ScoreCapDto scoreCapDto) {
-		
-		logger.info("start : deleteScoreCap");
-		
-		scoreCapRepository.deleteById(scoreCapDto.getCondition());	
-		
-	}
-	
-	private ScoreCap convertDtoToEntity(ScoreCapDto scoreCapDto) {
-		return new ScoreCap(scoreCapDto.getCondition(),scoreCapDto.getTotalRiskCappedScore());
-	}
+    // Helper method to convert ScoreCapDto to ScoreCap entity
+    private ScoreCap convertDtoToEntity(ScoreCapDto scoreCapDto) {
+        return new ScoreCap(scoreCapDto.getCondition(), scoreCapDto.getTotalRiskCappedScore());
+    }
 
-
-	private ScoreCapDto convertEntityToDto(ScoreCap scoreCaps) {
-		// TODO Auto-generated method stub
-		return new ScoreCapDto(scoreCaps.getCondition(),scoreCaps.getTotalRiskCappedScore());
-	}
-
+    // Helper method to convert  ScoreCap entity to ScoreCapDto 
+    private ScoreCapDto convertEntityToDto(ScoreCap scoreCaps) {
+        return new ScoreCapDto(scoreCaps.getCondition(), scoreCaps.getTotalRiskCappedScore());
+    }
 }

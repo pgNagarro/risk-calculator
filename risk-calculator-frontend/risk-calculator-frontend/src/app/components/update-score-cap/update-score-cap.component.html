@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Please provide the details below :</h1><br>
+
+<div mat-dialog-content>
+
+    <div class="container">
+        <form>
+
+            <label for="score">Score : {{ scoreCap?.condition }}</label><br><br>
+
+            <label for="totalScoreCappedValue">Total risk capped score *</label><br><br>
+            <input class="form-control form-rounded" type="number" name="totalScoreCappedValue" id="totalScoreCappedValue" [(ngModel)]="totalScoreCappedValue" required min="1" max="100"><br>
+
+            <!-- Show error message for min validation -->
+            <div id="errors" *ngIf="totalScoreCappedValue && totalScoreCappedValue < 1 && isFormSubmitted">Total risk capped scoreshould be between 1 and 100.</div>
+
+            <!-- Show error message for max validation -->
+            <div id="errors" *ngIf="totalScoreCappedValue && totalScoreCappedValue > 100 && isFormSubmitted">Total risk capped score should be between 1 and 100.</div>
+        </form>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button class="AddButton" id="AddButton" role="button" (click)="onSubmit()">Update</button>&nbsp;&nbsp;&nbsp;
+    <button class="CloseButton" id="CloseButton" role="button" mat-dialog-close>Close</button>
+</div>

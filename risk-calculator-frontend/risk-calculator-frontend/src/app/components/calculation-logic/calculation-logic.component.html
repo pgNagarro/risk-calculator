@@ -6,7 +6,7 @@
         <td>
             <mat-dialog-actions>
 
-                <button mat-raised-button class="addButton">Add data</button></mat-dialog-actions>
+                <button mat-raised-button class="addButton" (click)="openPopup()">Add data</button></mat-dialog-actions>
         </td>
     </div><br>
     <table class="table table-striped table-bordered">
@@ -18,14 +18,14 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <tr *ngFor="let val of riskCalcLogics">
+            <tr *ngFor="let val of allCalculationLogic">
                 <td>{{val.elementName}}</td>
                 <td>{{val.formula}}</td>
                 <td>
-                    <button (click)="updateRiskCalc(val.elementName)" class="btn btn-info">Update</button>
-                    <button (click)="deleteRiskCalc(val.elementName)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+                    <button class="UpdateButton" (click)="updatePopup(val.elementName)">Update</button>
+                    <button (click)="deleteRiskCalc(val.elementName)" class="DeleteButton" style="margin-left: 10px;">Delete</button>
                 </td>
-            </tr> -->
+            </tr>
         </tbody>
 
     </table>

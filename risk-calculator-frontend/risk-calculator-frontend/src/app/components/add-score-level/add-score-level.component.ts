@@ -35,7 +35,7 @@ export class AddScoreLevelComponent implements OnInit {
           alert('The new range collides with an existing range. Please enter non-overlapping range values.');
         } else {
           // If the range is not colliding with any existing range, proceed to add it
-          this.scoreLevel = new ScoreLevel(this.formData.range, this.formData.level);
+          this.scoreLevel = new ScoreLevel(this.formData.range, this.formData.level.toLowerCase());
 
           this.service.addRiskScoreLevel(this.scoreLevel).subscribe((data) => {
             console.log(data);

@@ -1,1 +1,44 @@
-<p>add-score-cap works!</p>
+<h1 mat-dialog-title>Please provide the details below :</h1><br>
+
+<div mat-dialog-content>
+
+    <div class="container">
+        <form (ngSubmit)="onSubmit()">
+            <label for="numberOfLevels">Number of a Level *</label>
+            <input class="form-control form-rounded" type="number" name="numberOfLevels" id="numberOfLevels" [(ngModel)]="numberOfLevels" required min="1" max="100">
+
+            <!-- Show error message for required validation -->
+            <div id="errors" *ngIf="!numberOfLevels && isFormSubmitted">Number of Levels is required.</div>
+
+            <!-- Show error message for min validation -->
+            <div id="errors" *ngIf="numberOfLevels && numberOfLevels < 1 && isFormSubmitted">Number of Levels should be between 1 and 100.</div>
+
+            <!-- Show error message for max validation -->
+            <div id="errors" *ngIf="numberOfLevels && numberOfLevels > 100 && isFormSubmitted">Number of Levels should be between 1 and 100.</div>
+
+            <label for="dropdownValue">Level *</label>
+            <mat-form-field appearance="fill">
+                <mat-label>Select an option</mat-label>
+                <mat-select name="dropdownValue" [(ngModel)]="dropdownValue" required>
+                    <mat-option *ngFor="let option of dropdownOptions" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <label for="totalRiskCappedScore">Total risk capped score *</label>
+            <input class="form-control form-rounded" type="number" name="totalRiskCappedScore" id="totalRiskCappedScore" [(ngModel)]="totalRiskCappedScore" required min="1" max="100">
+
+            <!-- Show error message for min validation -->
+            <div id="errors" *ngIf="totalRiskCappedScore && totalRiskCappedScore < 1 && isFormSubmitted">Total risk capped scoreshould be between 1 and 100.</div>
+
+            <!-- Show error message for max validation -->
+            <div id="errors" *ngIf="totalRiskCappedScore && totalRiskCappedScore > 100 && isFormSubmitted">Total risk capped score should be between 1 and 100.</div>
+        </form>
+    </div>
+
+</div>
+<div mat-dialog-actions>
+    <button class="AddButton" id="AddButton" role="button" (click)="onSubmit()">Add</button>&nbsp;&nbsp;&nbsp;
+    <button class="CloseButton" id="CloseButton" role="button" mat-dialog-close>Close</button>
+</div>

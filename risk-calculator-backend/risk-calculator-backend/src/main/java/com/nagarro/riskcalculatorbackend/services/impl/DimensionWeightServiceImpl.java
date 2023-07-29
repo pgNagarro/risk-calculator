@@ -15,49 +15,58 @@ import com.nagarro.riskcalculatorbackend.services.DimensionWeightService;
 
 
 /**
- * Service Implementation Class for Dimension Weight Service
+ * Service Implementation Class for Dimension Weight Service.
+ * This class provides implementations for the methods defined in DimensionWeightService.
+ * It interacts with the repository to perform CRUD operations on DimensionWeight entities.
+ * The service layer handles business logic and error handling for DimensionWeight operations.
+ * 
  * @author parasgautam
  *
  */
 @Service
-public class DimensionWeightServiceImpl implements DimensionWeightService{
-	
-	private static final Logger logger = LoggerFactory.getLogger(DimensionWeightServiceImpl.class);
+public class DimensionWeightServiceImpl implements DimensionWeightService {
 
-	@Autowired
-	private DimensionWeightRepository dimensionWeightRepository;
+    private static final Logger logger = LoggerFactory.getLogger(DimensionWeightServiceImpl.class);
 
-	@Override
-	public List<DimensionWeight> getAllDimensionWeight() {
-		
-		logger.info("start : getAllDimensionWeight");
-		
-		return dimensionWeightRepository.findAll();
-		
-	}
+    @Autowired
+    private DimensionWeightRepository dimensionWeightRepository;
 
-	@Override
-	public DimensionWeightDto saveDimensionWeight(DimensionWeightDto dimensionWeightDto) throws IOException {
-		
-		logger.info("start : saveDimensionWeight"); 
-				
-		try {
-	        // Begin a transaction here if necessary
-	        dimensionWeightRepository.deleteAll();
-	        
-	        for(int i=0;i<dimensionWeightDto.getDimensionWeights().size();i++) {
-	        	dimensionWeightRepository.save(dimensionWeightDto.getDimensionWeights().get(i));
-	        }
+    /**
+     * Retrieves a list of all DimensionWeight entities from the database.
+     * 
+     * @return List of DimensionWeight entities.
+     */
+    @Override
+    public List<DimensionWeight> getAllDimensionWeight() {
+        logger.info("Getting all DimensionWeights from the database.");
+        return dimensionWeightRepository.findAll();
+    }
 
-	        // Commit the transaction if applicable
-	    } catch (Exception e) {
-	        // Rollback the transaction if applicable
-	        logger.error("Error while saving DimensionWeight: " + e.getMessage());
-	        throw new IOException("Failed to save DimensionWeight. Please check logs for details.");
-	    }
-		
-		return dimensionWeightDto;
-		
-	}
+    /**
+     * Saves DimensionWeight entities to the database.
+     * 
+     * @param dimensionWeightDto The DimensionWeightDto containing the list of DimensionWeight entities to be saved.
+     * @return The saved DimensionWeightDto.
+     * @throws IOException If there is an error during the save operation.
+     */
+    @Override
+    public DimensionWeightDto saveDimensionWeight(DimensionWeightDto dimensionWeightDto) throws IOException {
+        logger.info("Saving DimensionWeight entities to the database.");
+        try {
+            // Begin a transaction here if necessary
+            dimensionWeightRepository.deleteAll();
 
+            for (int i = 0; i < dimensionWeightDto.getDimensionWeights().size(); i++) {
+                dimensionWeightRepository.save(dimensionWeightDto.getDimensionWeights().get(i));
+            }
+
+            // Commit the transaction if applicable
+        } catch (Exception e) {
+            // Rollback the transaction if applicable
+            logger.error("Error while saving DimensionWeight: " + e.getMessage());
+            throw new IOException("Failed to save DimensionWeight. Please check logs for details.");
+        }
+
+        return dimensionWeightDto;
+    }
 }

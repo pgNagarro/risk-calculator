@@ -53,7 +53,7 @@ public class CompanyDimensionController {
 		
 		List<CompanyDimension> companyDimensionList = companyDimensionService.getAllCompanyDimension();
 		
-		logger.info("Request completed for fetching company dimensions");
+		logger.info("Request completed for fetching all the company dimensions");
 		
 		return ResponseEntity.ok(companyDimensionList);
 		
