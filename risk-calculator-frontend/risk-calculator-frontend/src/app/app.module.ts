@@ -30,6 +30,7 @@ import { UpdateScoreLevelComponent } from './components/update-score-level/updat
 import { UpdateScoreCapComponent } from './components/update-score-cap/update-score-cap.component';
 import { AddCalculationLogicComponent } from './components/add-calculation-logic/add-calculation-logic.component';
 import { UpdateCalculationLogicComponent } from './components/update-calculation-logic/update-calculation-logic.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -52,6 +53,7 @@ import { UpdateCalculationLogicComponent } from './components/update-calculation
     UpdateScoreCapComponent,
     AddCalculationLogicComponent,
     UpdateCalculationLogicComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

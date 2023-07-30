@@ -30,138 +30,128 @@ import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
  *
  */
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class ScoreLevelController {
-	
-private static final Logger logger = LoggerFactory.getLogger(ScoreLevelController.class);
-	
-	@Autowired
-	private ScoreLevelService scoreLevelService;
-	
-	/**
-	 * Method to get all score level data
-	 * @return
-	 */
-	@GetMapping("/all-score-level")
-	public ResponseEntity<List<ScoreLevel>> getRiskScoreLevel(){
-		
-		logger.info("Request received for fetching all the risk score level data");
-		
-		List<ScoreLevel> scoreLevelList = scoreLevelService.getAllRiskScoreLevel();
-		
-		logger.info("Request completed for fetching all the risk score level data");
-		
-		return ResponseEntity.ok(scoreLevelList);
-		
-	}
-	
-	
-	/**
-	 * Method to saving score level data
-	 * @param riskScoreLevel
-	 * @return
-	 */
-	@PostMapping("/add-score-level")
-	public ResponseEntity<ScoreLevelDto> saveRiskScoreLevel(@RequestBody ScoreLevelDto scoreLevelDto) {
-		
-		logger.info("Request received for adding risk score level data");
-		
-		ScoreLevelDto newRiskScoreLevelDto = scoreLevelService.saveScoreLevel(scoreLevelDto);
-		
-		logger.info("Request completed for adding risk score level data");
-		
-		return ResponseEntity.ok(newRiskScoreLevelDto);
-		
-	}
-	
-	/**
-	 * Method for getting single score level data by score
-	 * @param score
-	 * @return
-	 */
-	@GetMapping("/score-level/{score}")
-	public ResponseEntity<ScoreLevelDto> getRiskScoreLevelByScore(@PathVariable String score){
-		
-		logger.info("Request received for getting single risk score level data");
-		
-		ScoreLevelDto scoreLevelDto;
-		
-		try {
-			
-			scoreLevelDto = scoreLevelService.getScoreLevelByScore(score);
-			
-			logger.info("Request completed for getting single risk score level data");
-			
-			return ResponseEntity.ok(scoreLevelDto);
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-			return ResponseEntity.ok(null);
-			
-		}		
-	}
-	
-	/**
-	 * Method for updating score level data
-	 * @param score
-	 * @param riskScoreLevelDetails
-	 * @return
-	 */
-	@PutMapping("/score-level/{score}")
-	public ResponseEntity<ScoreLevelDto> updateRiskScoreLevel(@PathVariable String score, @RequestBody ScoreLevelDto riskScoreLevelDetails){
-		
-		logger.info("Request received for updating risk score level");
-		
-		ScoreLevelDto scoreLevelDto = scoreLevelService.updateScoreLevel(riskScoreLevelDetails);
-		
-		logger.info("Request completed for updating risk score level");
-		
-		return ResponseEntity.ok(scoreLevelDto);
-		
-	}
-	
-	
-	/**
-	 * Method for deleting score level data
-	 * @param score
-	 * @return
-	 */
-	@DeleteMapping("/score-level/{score}")
-	public ResponseEntity<Map<String, Boolean>> deleteRiskScoreLevel(@PathVariable String score){
-		
-		logger.info("Request received for deleting risk score level");
-		
-		ScoreLevelDto scoreLevelDto;
-		
-		try {
-			scoreLevelDto = scoreLevelService.getScoreLevelByScore(score);
-			
-			scoreLevelService.deleteScoreLevel(scoreLevelDto);
-			
-			Map<String,Boolean> response = new HashMap<>();
-			response.put("Deleted",Boolean.TRUE);
-			
-			logger.info("Request completed for deleting risk score level");
-			
-			return ResponseEntity.ok(response);
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-			Map<String,Boolean> response = new HashMap<>();
-			response.put("Unable to Delete",Boolean.FALSE);
-			return ResponseEntity.ok(null);
-			
-		}
-		
-		
-	}
-	
-	
-	
-	
-	
-	
 
+    private static final Logger logger = LoggerFactory.getLogger(ScoreLevelController.class);
+
+    @Autowired
+    private ScoreLevelService scoreLevelService;
+
+    /**
+     * Method to get all score level data.
+     *
+     * @return ResponseEntity with a list of ScoreLevel objects
+     */
+    @GetMapping("/all-score-level")
+    public ResponseEntity<List<ScoreLevel>> getRiskScoreLevel() {
+
+        logger.info("Request received for fetching all the risk score level data");
+
+        List<ScoreLevel> scoreLevelList = scoreLevelService.getAllRiskScoreLevel();
+
+        logger.info("Request completed for fetching all the risk score level data");
+
+        return ResponseEntity.ok(scoreLevelList);
+    }
+
+    /**
+     * Method to save score level data.
+     *
+     * @param scoreLevelDto The ScoreLevelDto object to be saved
+     * @return ResponseEntity with the newly created ScoreLevelDto object
+     */
+    @PostMapping("/add-score-level")
+    public ResponseEntity<ScoreLevelDto> saveRiskScoreLevel(@RequestBody ScoreLevelDto scoreLevelDto) {
+
+        logger.info("Request received for adding risk score level data");
+
+        ScoreLevelDto newRiskScoreLevelDto = scoreLevelService.saveScoreLevel(scoreLevelDto);
+
+        logger.info("Request completed for adding risk score level data");
+
+        return ResponseEntity.ok(newRiskScoreLevelDto);
+    }
+
+    /**
+     * Method for getting single score level data by score.
+     *
+     * @param score The score for which to fetch the ScoreLevelDto
+     * @return ResponseEntity with the ScoreLevelDto object for the given score
+     */
+    @GetMapping("/score-level/{score}")
+    public ResponseEntity<ScoreLevelDto> getRiskScoreLevelByScore(@PathVariable String score) {
+
+        logger.info("Request received for getting single risk score level data");
+
+        ScoreLevelDto scoreLevelDto;
+
+        try {
+            scoreLevelDto = scoreLevelService.getScoreLevelByScore(score);
+
+            logger.info("Request completed for getting single risk score level data");
+
+            return ResponseEntity.ok(scoreLevelDto);
+
+        } catch (IOException e) {
+
+            logger.error("Error while fetching risk score level data: " + e.getMessage());
+            return ResponseEntity.ok(null);
+        }
+    }
+
+    /**
+     * Method for updating score level data.
+     *
+     * @param score                The score to be updated
+     * @param riskScoreLevelDetails The updated ScoreLevelDto object
+     * @return ResponseEntity with the updated ScoreLevelDto object
+     */
+    @PutMapping("/score-level/{score}")
+    public ResponseEntity<ScoreLevelDto> updateRiskScoreLevel(@PathVariable String score, @RequestBody ScoreLevelDto riskScoreLevelDetails) {
+
+        logger.info("Request received for updating risk score level");
+
+        ScoreLevelDto scoreLevelDto = scoreLevelService.updateScoreLevel(riskScoreLevelDetails);
+
+        logger.info("Request completed for updating risk score level");
+
+        return ResponseEntity.ok(scoreLevelDto);
+    }
+
+    /**
+     * Method for deleting score level data.
+     *
+     * @param score The score for which to delete the ScoreLevelDto
+     * @return ResponseEntity with a Map indicating whether the deletion was successful or not
+     */
+    @DeleteMapping("/score-level/{score}")
+    public ResponseEntity<Map<String, Boolean>> deleteRiskScoreLevel(@PathVariable String score) {
+
+        logger.info("Request received for deleting risk score level");
+
+        ScoreLevelDto scoreLevelDto;
+
+        try {
+            scoreLevelDto = scoreLevelService.getScoreLevelByScore(score);
+
+            scoreLevelService.deleteScoreLevel(scoreLevelDto);
+
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("Deleted", Boolean.TRUE);
+
+            logger.info("Request completed for deleting risk score level");
+
+            return ResponseEntity.ok(response);
+
+        } catch (IOException e) {
+
+            logger.error("Error while deleting risk score level: " + e.getMessage());
+
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("Unable to Delete", Boolean.FALSE);
+
+            return ResponseEntity.ok(response);
+        }
+    }
 }

@@ -27,57 +27,54 @@ import com.nagarro.riskcalculatorbackend.services.DimensionWeightService;
  *
  */
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class DimensionWeightController {
 
-	private static final Logger logger = LoggerFactory.getLogger(DimensionWeightController.class);
-	
-	@Autowired
-	private DimensionWeightService dimensionWeightService;
-	
+    private static final Logger logger = LoggerFactory.getLogger(DimensionWeightController.class);
 
-	/**
-	 * Method to get all dimension weight data
-	 * @return
-	 */
-	@GetMapping("/all-dimension-weight")
-	public ResponseEntity<List<DimensionWeight>> getDimensionWeight(){
-		
-		logger.info("Request received for fetching all Dimension Weight data");
-		
-		List<DimensionWeight> dimensionWeightList = dimensionWeightService.getAllDimensionWeight();
-		
-		logger.info("Request completed for fetching all Dimension Weight data");
-		
-		return ResponseEntity.ok(dimensionWeightList);
-		
-	}
-	
-	/**
-	 * Method for saving dimension weight data
-	 * @param dimensionWeightDto
-	 * @return
-	 */
-	@PostMapping("/add-dimension-weight")
-	public ResponseEntity<DimensionWeightDto> saveDimensionWeightDto(@RequestBody DimensionWeightDto dimensionWeightDto) {
-		
-		logger.info("Request received for Dimension Weight data");
-		
-		DimensionWeightDto newDimensionWeightDto;
-		try {
-			newDimensionWeightDto = dimensionWeightService.saveDimensionWeight(dimensionWeightDto);
-			
-			logger.info("Request completed for Dimension Weight data");
-			
-			return ResponseEntity.ok(newDimensionWeightDto);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null,HttpStatus.NOT_ACCEPTABLE);
-		}
-	}
-	
-	
-	
+    @Autowired
+    private DimensionWeightService dimensionWeightService;
 
+    /**
+     * Method to get all dimension weight data.
+     *
+     * @return ResponseEntity with a list of DimensionWeight objects
+     */
+    @GetMapping("/all-dimension-weight")
+    public ResponseEntity<List<DimensionWeight>> getDimensionWeight() {
+
+        logger.info("Request received for fetching all Dimension Weight data");
+
+        List<DimensionWeight> dimensionWeightList = dimensionWeightService.getAllDimensionWeight();
+
+        logger.info("Request completed for fetching all Dimension Weight data");
+
+        return ResponseEntity.ok(dimensionWeightList);
+    }
+
+    /**
+     * Method for saving dimension weight data.
+     *
+     * @param dimensionWeightDto The DimensionWeightDto object to be saved
+     * @return ResponseEntity with the newly created DimensionWeightDto object or
+     *         HttpStatus.NOT_ACCEPTABLE if there was an error saving the data
+     */
+    @PostMapping("/add-dimension-weight")
+    public ResponseEntity<DimensionWeightDto> saveDimensionWeightDto(@RequestBody DimensionWeightDto dimensionWeightDto) {
+
+        logger.info("Request received for Dimension Weight data");
+
+        try {
+            DimensionWeightDto newDimensionWeightDto = dimensionWeightService.saveDimensionWeight(dimensionWeightDto);
+
+            logger.info("Request completed for Dimension Weight data");
+
+            return ResponseEntity.ok(newDimensionWeightDto);
+
+        } catch (IOException e) {
+            logger.error("Error while saving Dimension Weight data: " + e.getMessage());
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 }
