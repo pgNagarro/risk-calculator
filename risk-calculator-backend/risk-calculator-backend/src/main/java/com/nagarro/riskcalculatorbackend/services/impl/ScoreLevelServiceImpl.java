@@ -64,9 +64,6 @@ public class ScoreLevelServiceImpl implements ScoreLevelService{
 	public ScoreLevelDto getScoreLevelByScore(String score) throws IOException {
 		logger.info("start : getScoreLevelByScore");
 		ScoreLevel riskScoreLevels = scoreLevelRepository.findByScore(score);
-		if(riskScoreLevels == null) {
-			throw new IOException("Risk Score Level not found");
-		}
 		return convertEntityToDto(riskScoreLevels);
 	}
 

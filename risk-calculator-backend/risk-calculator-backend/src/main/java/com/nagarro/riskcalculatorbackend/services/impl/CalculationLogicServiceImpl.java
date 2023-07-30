@@ -66,9 +66,7 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
     public CalculationLogicDto getCalculationLogicByName(String name) throws IOException {
         logger.info("start : getCalculationLogicByName");
         CalculationLogic singleLogic = calculationLogicRepository.findByElementName(name);
-        if(singleLogic == null) {
-            throw new IOException("Risk calculation logic data not found");
-        }
+
         return convertEntityToDto(singleLogic);
     }
     

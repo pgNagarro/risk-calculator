@@ -48,6 +48,8 @@ export class AddScoreLevelComponent implements OnInit {
     }
   }
 
+   
+
   isRangeColliding(existingLevels: any): boolean {
     const newLowerRange = parseInt(this.formData.lowerRange, 10);
     const newUpperRange = parseInt(this.formData.upperRange, 10);

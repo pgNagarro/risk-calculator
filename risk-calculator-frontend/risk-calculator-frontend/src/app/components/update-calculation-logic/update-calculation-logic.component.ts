@@ -75,7 +75,7 @@ export class UpdateCalculationLogicComponent implements OnInit {
           this.dropdownOptions.push({ value: ele.elementName, label: ele.elementName });
         }
     });
-
+    this.dropdownOptions.push({ value:'total_risk_capped_score', label: 'total_risk_capped_score' });
 
   }
 
@@ -199,13 +199,14 @@ updateFormula() {
     }
 
    this.calculationLogic.formula = this.formula;
-   this.calculationLogicService.updateCalculationLogic(this.elementName,this.calculationLogic).subscribe((data)=>{
+   this.calculationLogicService.updateCalculationLogic(this.elementName.toLowerCase(),this.calculationLogic).subscribe((data)=>{
       console.log(data);
    });
 
     // Optionally, you can reset the form after submission
     this.calculationLogicForm.reset();
   }
+
 
    containsNumber(inputString: string): boolean {
     const regex = /\d/;

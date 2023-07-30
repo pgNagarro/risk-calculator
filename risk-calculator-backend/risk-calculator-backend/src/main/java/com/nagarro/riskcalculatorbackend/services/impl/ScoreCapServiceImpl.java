@@ -64,6 +64,17 @@ public class ScoreCapServiceImpl implements ScoreCapService {
         ScoreCap scoreCaps = scoreCapRepository.findByCondition(condition);
         return convertEntityToDto(scoreCaps);
     }
+    
+    /**
+     * Method to get score cap data by condition.
+     * @param condition The condition to be used for retrieving the score cap data.
+     * @return The ScoreCap object representing the score cap data.
+     * @throws IOException If an I/O error occurs during the operation.
+     */
+    public ScoreCap getScoreCap(String condition) {
+    	return scoreCapRepository.findByCondition(condition);
+    }
+    
 
     /**
      * Method to update score cap data.

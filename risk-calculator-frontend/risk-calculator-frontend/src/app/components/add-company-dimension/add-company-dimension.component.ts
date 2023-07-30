@@ -6,7 +6,6 @@ import { CompanyDimension } from 'src/app/models/CompanyDimension';
 import { Dimension } from 'src/app/models/Dimension';
 import { CompanyDimensionService } from 'src/app/services/company-dimension.service';
 import { SharedServiceService } from 'src/app/services/shared-service.service';
-import { ViewComponent } from '../view/view.component';
 
 
 
@@ -69,14 +68,14 @@ export class AddCompanyDimensionComponent implements OnInit {
     
 
   if(!this.companyDimension){
-    this.companyDimension= new CompanyDimension(cName);
+    this.companyDimension= new CompanyDimension(cName.toLowerCase());
   }
       
     
     
     console.log(dName+' '+dValue);
-
-    let dimensions = new Dimension(dName,dValue);
+    
+    let dimensions = new Dimension(dName.toLowerCase(),dValue);
     this.companyDimension.addDimensions(dimensions);
 
     this.service.addCompanyDimension(this.companyDimension).subscribe(data=>{

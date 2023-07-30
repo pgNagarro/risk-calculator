@@ -33,7 +33,7 @@ export class UpdateScoreLevelComponent implements OnInit {
     const regex = /^[A-Za-z\s]+$/;
     if (regex.test(this.levelValue)) {
       // Validation passed, update the 'scoreLevel' object
-      this.scoreLevel.level = this.levelValue;
+      this.scoreLevel.level = this.levelValue.toLowerCase();
       this.service.updateRiskScoreLevel(this.score, this.scoreLevel).subscribe(data => {
         console.log(data);
       });
@@ -42,5 +42,7 @@ export class UpdateScoreLevelComponent implements OnInit {
       alert('Validation failed. Only letters and spaces are allowed.');
     }
   }
+
+  
 
 }

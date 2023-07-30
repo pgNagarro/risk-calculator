@@ -51,5 +51,13 @@ public interface ScoreCapService {
      * @param scoreCapDto The ScoreCapDto object representing the entity to be deleted.
      */
     void deleteScoreCap(ScoreCapDto scoreCapDto);
+    
+    /**
+     * Retrieves a ScoreCap object based on the given condition.
+     * @param condition The condition for which the ScoreCap needs to be retrieved.
+     * @return ScoreCap object representing the matched ScoreCap entity.
+     * @throws IOException if an I/O error occurs during the process.
+     */
+    public ScoreCap getScoreCap(String condition);
 
 }

@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ public class CalculationLogic {
 	private String elementName;
 	
 	@Column(name="formula")
+	@NotBlank(message="Formula cannot be blank")
 	private String formula;
 
 }

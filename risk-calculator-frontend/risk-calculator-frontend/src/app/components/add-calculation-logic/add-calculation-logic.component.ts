@@ -61,9 +61,10 @@ export class AddCalculationLogicComponent implements OnInit {
         for(const ele of this.allCalculationLogic){
           this.dropdownOptions.push({ value: ele.elementName, label: ele.elementName });
         }
+        
     });
 
-
+    this.dropdownOptions.push({ value:'total_risk_capped_score', label: 'total_risk_capped_score' });
   }
 
   get elementName() {
@@ -189,8 +190,8 @@ updateFormula() {
 
     // Perform form submission logic here (e.g., sending the data to a server)
     console.log('Form submitted with element name:', this.calculationLogicForm.value.elementName);
-
-    this.calculationLogic = new CalculationLogic(this.calculationLogicForm.value.elementName,this.formula);
+     
+    this.calculationLogic = new CalculationLogic(this.calculationLogicForm.value.elementName.toLowerCase(),this.formula);
     this.calculationLogicService.addCalculationLogic(this.calculationLogic).subscribe((data)=>{
       console.log(data);
     })
@@ -198,6 +199,7 @@ updateFormula() {
     // Optionally, you can reset the form after submission
     this.calculationLogicForm.reset();
   }
+
 
    containsNumber(inputString: string): boolean {
     const regex = /\d/;
