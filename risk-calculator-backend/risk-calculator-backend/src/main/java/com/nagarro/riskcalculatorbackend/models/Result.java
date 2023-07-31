@@ -32,7 +32,7 @@ public class Result {
 	private String companyName;
 	
 	@Column(name="total_risk_capped_score")
-	private int totalRiskCappedScore;
+	private double totalRiskCappedScore;
 	
 	@ElementCollection
 	@CollectionTable(name="output_value", joinColumns = @JoinColumn(name="company_name"))

@@ -22,6 +22,6 @@ public class OutputValues {
 	private String elementName;
 	
 	@Column(name="value")
-	private int elementValue;
+	private double elementValue;
 	
 }

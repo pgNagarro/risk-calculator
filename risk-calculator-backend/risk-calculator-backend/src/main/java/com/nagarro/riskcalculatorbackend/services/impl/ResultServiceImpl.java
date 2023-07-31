@@ -2,6 +2,7 @@ package com.nagarro.riskcalculatorbackend.services.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,6 @@ import com.nagarro.riskcalculatorbackend.services.DimensionWeightService;
 import com.nagarro.riskcalculatorbackend.services.ResultService;
 import com.nagarro.riskcalculatorbackend.services.ScoreCapService;
 import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
-
 
 /**
  * Service Implementation Class for Result Service
@@ -99,6 +99,7 @@ public class ResultServiceImpl implements ResultService {
 			List<DimensionWeight> riskDimensionList = dimensionWeightService.getAllDimensionWeight();
 			
 			Map<String, Integer> totalCappedScoreMap = calculateTotalRiskedCappedScore();
+			
 			String operations = "[(),%/*+-]";
 			
 			if( riskScoreList.isEmpty() || riskCalcList.isEmpty() || riskDimensionList.isEmpty() || totalCappedScoreMap.isEmpty()) {
@@ -108,11 +109,11 @@ public class ResultServiceImpl implements ResultService {
 	
 			for (int m = 0; m < riskScoreList.size(); m++) { // for each company and for its values
 				
-				Map<String, Integer> elementResultMap = new HashMap<>(); // stores formula element name and its
+				Map<String, Double> elementResultMap = new HashMap<>(); // stores formula element name and its
 																			// corresponding resulting value
 
 				elementResultMap.put("total_risk_capped_score",
-						totalCappedScoreMap.get(riskScoreList.get(m).getCompanyName()));
+						(double)totalCappedScoreMap.get(riskScoreList.get(m).getCompanyName()));
 				
 				for (int i = 0; i < 10; i++) { // for evaluating values if missing then skipping					
 					evaluateFormula(riskScoreList,riskCalcList,riskDimensionList,elementResultMap,operations,m);
@@ -151,7 +152,7 @@ public class ResultServiceImpl implements ResultService {
 	 * @param m
 	 * @throws IOException
 	 */
-	public void evaluateFormula(List<CompanyDimension> riskScoreList,List<CalculationLogic> riskCalcList,List<DimensionWeight> riskDimensionList, Map<String, Integer> elementResultMap, String operations,int m) throws IOException{
+	public void evaluateFormula(List<CompanyDimension> riskScoreList,List<CalculationLogic> riskCalcList,List<DimensionWeight> riskDimensionList, Map<String, Double> elementResultMap, String operations,int m) throws IOException{
 		
 		for (int j = 0; j < riskCalcList.size(); j++) {
 
@@ -160,53 +161,91 @@ public class ResultServiceImpl implements ResultService {
 
 			String[] formula_array = formula.split(operations);
 			
-			int formulaResultValue = -1;
+			double formulaResultValue = -1;
 			int flag = -1;
 
 			DoubleEvaluator eval = new DoubleEvaluator();
 			StaticVariableSet<Double> variables = new StaticVariableSet<Double>();
+				
+			if(Arrays.stream(formula_array).anyMatch("min"::equals) || Arrays.stream(formula_array).anyMatch("max"::equals)) {
+				
+				int flag2 = -1, flag3=-1;
+				double value1=0;
+				double value2=0;
+				for(int i=0;i<formula_array.length;i++) {	
+					
+					if(formula_array[i].equals("min") || formula_array[i].equals("max") ) {
+						
+						for (int l = 0; l < riskScoreList.get(m).getDimensions().size(); l++) {
+							if ((i+1)<formula_array.length && formula_array[i+1].equals(riskScoreList.get(m).getDimensions().get(l).getDimensionName())) {
+								value1 = riskScoreList.get(m).getDimensions().get(l).getDimensionValue();
+								flag2=0;
+							}
+						}
+						if((i+1)<formula_array.length && elementResultMap.containsKey(formula_array[i+1])){
+							value1=elementResultMap.get(formula_array[i+1]);
+							flag2=0;
+						}
+						
+						for (int l = 0; l < riskScoreList.get(m).getDimensions().size(); l++) {
+							if ((i+2)<formula_array.length && formula_array[i+2].equals(riskScoreList.get(m).getDimensions().get(l).getDimensionName())) {
+								value2 = riskScoreList.get(m).getDimensions().get(l).getDimensionValue();
+								flag3=0;
+							}
+						}
+						if((i+2)<formula_array.length && elementResultMap.containsKey(formula_array[i+2])){
+							value2=elementResultMap.get(formula_array[i+2]);
+							flag3=0;
+						}
+						double minMaxResult=0;
+						if(flag2==0 && flag3==0) {
+							
+							if(formula_array[i].equals("min")) {
+								minMaxResult = Math.min(value1,value2);
+								variables.set("min("+formula_array[i+1]+","+formula_array[i+2]+")", minMaxResult);
+								System.out.println("heqihqieh min("+formula_array[i+1]+","+formula_array[i+2]+") = "+minMaxResult);
+								
+							}
+							if(formula_array[i].equals("max")) {
+								minMaxResult = Math.max(value1,value2);
+								variables.set("max("+formula_array[i+1]+","+formula_array[i+2]+")", minMaxResult);
+							}
+							
+							for (int k = 0; k < formula_array.length; k++) {
+								// check if value is present or not in dimension table
+								if (elementResultMap.containsKey(formula_array[k])) {
+									variables.set(formula_array[k], Double.valueOf(elementResultMap.get(formula_array[k])));
+								} else {
 
-			if (formula_array[0].equals("min") || formula_array[0].equals("max")) {
-				// check in dimension table and check in elementResultMap	
-				System.out.print("heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+formula_array[0]+ formula_array[1]+formula_array[2]);
-				int value1=0;
-				int value2=0;
-				for (int l = 0; l < riskScoreList.get(m).getDimensions().size(); l++) {
-					if (formula_array[1]
-							.equals(riskScoreList.get(m).getDimensions().get(l).getDimensionName())) {
-						value1 = riskScoreList.get(m).getDimensions().get(l).getDimensionValue();
-						break;
+									for (int l = 0; l < riskScoreList.get(m).getDimensions().size(); l++) {
+										if (formula_array[k]
+												.equals(riskScoreList.get(m).getDimensions().get(l).getDimensionName())) {
+											variables.set(formula_array[k], Double.valueOf(
+													riskScoreList.get(m).getDimensions().get(l).getDimensionValue()));
+											flag = 0;
+								
+										}
+									}
+
+									for (int p = 0; p < riskDimensionList.size(); p++) {
+										if (formula_array[k].equals(riskDimensionList.get(p).getDimension())) {
+											variables.set(riskDimensionList.get(p).getDimension()+" weight",
+													Double.valueOf(riskDimensionList.get(p).getWeight() * 0.01f));
+											flag = 0;
+											
+										}
+									}
+								}
+							}
+						}
 					}
-				}
-				if(elementResultMap.containsKey(formula_array[1])){
-					value1=elementResultMap.get(formula_array[1]);
-				}
-				else {
-					continue;
 				}
 				
-				for (int l = 0; l < riskScoreList.get(m).getDimensions().size(); l++) {
-					if (formula_array[2]
-							.equals(riskScoreList.get(m).getDimensions().get(l).getDimensionName())) {
-						value2 = riskScoreList.get(m).getDimensions().get(l).getDimensionValue();
-						break;
-					}
-				}
-				if(elementResultMap.containsKey(formula_array[2])){
-					value2=elementResultMap.get(formula_array[2]);
-				}
-				else {
+				if( flag2==-1 || flag3==-1 ) {
 					continue;
 				}
-				if(formula_array[0].equals("min")) {
-					formulaResultValue = Math.min(value1,value2);
-				}
-				if(formula_array[0].equals("max")) {
-					formulaResultValue = Math.max(value1,value2);
-				}	
-				elementResultMap.put(elementName,formulaResultValue);
-	
-			} else {
+			}
+			else {
 				for (int k = 0; k < formula_array.length; k++) {
 					// check if value is present or not in dimension table
 					if (elementResultMap.containsKey(formula_array[k])) {
@@ -225,8 +264,7 @@ public class ResultServiceImpl implements ResultService {
 
 						for (int p = 0; p < riskDimensionList.size(); p++) {
 							if (formula_array[k].equals(riskDimensionList.get(p).getDimension())) {
-								
-								variables.set(formula_array[k]+" weight",
+								variables.set(riskDimensionList.get(p).getDimension()+" weight",
 										Double.valueOf(riskDimensionList.get(p).getWeight() * 0.01f));
 								flag = 0;
 								break;
@@ -235,9 +273,10 @@ public class ResultServiceImpl implements ResultService {
 					}
 				}
 			}
+			
 			if (formulaResultValue == -1 || flag == 1) {
 				Double result = eval.evaluate(formula, variables);
-				elementResultMap.put(elementName, result.intValue());
+				elementResultMap.put(elementName, result);
 			}
 		} 
 	}
@@ -245,15 +284,15 @@ public class ResultServiceImpl implements ResultService {
 	
 	// Method to insert calculated values from risk calc logic to output table
 	
-		public void insertValuesInResultTable(Map<String, Integer> elementResultMap, List<CompanyDimension> riskScoreList,
+		public void insertValuesInResultTable(Map<String, Double> elementResultMap, List<CompanyDimension> riskScoreList,
 				int companyRiskScore) {
 			Result result = new Result();
 			List<OutputValues> outputValuesList = new ArrayList<>();
 			result.setCompanyName(riskScoreList.get(companyRiskScore).getCompanyName());
 			result.setTotalRiskCappedScore(elementResultMap.get("total_risk_capped_score"));
 
-			for (Map.Entry<String, Integer> entry : elementResultMap.entrySet()) {
-				OutputValues outputValues = new OutputValues(entry.getKey(), entry.getValue());
+			for (Map.Entry<String, Double> entry : elementResultMap.entrySet()) {
+				OutputValues outputValues = new OutputValues(entry.getKey(), Double.parseDouble(String.format("%.3f",entry.getValue())));
 				outputValuesList.add(outputValues);
 			}
 			result.setValues(outputValuesList);
@@ -268,8 +307,8 @@ public class ResultServiceImpl implements ResultService {
 		logger.info("start : calculateTotalRiskedCappedScore");
 		
 		Map<String, Integer> map = new HashMap<>();
-		String[] single_digits = new String[] { "zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
-				"Nine" };
+//		String[] single_digits = new String[] { "zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
+//				"Nine" };
 
 		List<CompanyDimension> riskScoreList = companyDimensionService.getAllCompanyDimension();
 		List<ScoreLevel> riskScoreLevelList = scoreLevelService.getAllRiskScoreLevel();
@@ -287,7 +326,10 @@ public class ResultServiceImpl implements ResultService {
 			}
 			for (Map.Entry<String, Integer> entry : level.entrySet()) {
 				
-				String s = single_digits[entry.getValue()] + " \"" + entry.getKey() + "\"";
+			//	String s = single_digits[entry.getValue()] + " \"" + entry.getKey() + "\"";
+				
+				String s = numberToWord(entry.getValue()) + " \"" + entry.getKey() + "\"";
+				
 				ScoreCap scoreCap = scoreCapService.getScoreCap(s);
 				
 				if (scoreCap != null) {
@@ -300,6 +342,25 @@ public class ResultServiceImpl implements ResultService {
 		}
 		return map;
 	}
+	
+	private String numberToWord(int number) {
+		
+		String[] single_digits = new String[]{"zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+	    String[] two_digits = new String[]{"", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+	    String[] tens_multiple = new String[]{"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+	    
+        if (number < 10) {
+            return single_digits[number];
+        } else if (number >= 10 && number < 20) {
+            return two_digits[number % 10 + 1];
+        } else if (number >= 20 && number < 100) {
+            return tens_multiple[number / 10] + single_digits[number % 10];
+        } else if (number == 100) {
+            return "One Hundred";
+        } else {
+            return "Number out of range (0 to 100)";
+        }
+    }
 	
 	// Method to get score level from risk score level table for each value of dimension
 	public void compareScore(Map<String,Integer> level,List<ScoreLevel> riskScoreLevelList, List<Integer> values, int j) {
