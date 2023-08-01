@@ -4,6 +4,12 @@
 
 /* Base Styles */
 
+@import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 h1 {
     background-color: #312450;
     width: auto;

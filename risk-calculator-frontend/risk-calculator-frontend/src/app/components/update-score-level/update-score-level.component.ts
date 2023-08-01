@@ -33,7 +33,7 @@ export class UpdateScoreLevelComponent implements OnInit {
     const regex = /^[A-Za-z\s]+$/;
     if (regex.test(this.levelValue)) {
       // Validation passed, update the 'scoreLevel' object
-      this.scoreLevel.level = this.levelValue.toLowerCase();
+      this.scoreLevel.level = this.toCamelCase(this.levelValue);
       this.service.updateRiskScoreLevel(this.score, this.scoreLevel).subscribe(data => {
         console.log(data);
         this.ref.close();
@@ -44,6 +44,12 @@ export class UpdateScoreLevelComponent implements OnInit {
     }
   }
 
+  toCamelCase(inputString: string): string {
+    return inputString
+      .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
+      .replace(/^[a-z]/, firstLetter => firstLetter.toUpperCase())
+      .replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+  }
   
 
 }

@@ -15,6 +15,7 @@ export class ViewComponent implements OnInit {
   showCalculationLogic:boolean;
   showScoreLevel:boolean;
   showScoreCap:boolean;
+  showText:boolean;
 
   constructor(private sharedDataService:SharedServiceService,private route: ActivatedRoute) { }
 
@@ -24,6 +25,7 @@ export class ViewComponent implements OnInit {
     this.showCalculationLogic = false;
     this.showScoreLevel = false;
     this.showScoreCap = false;
+    this.showText=true;
   }
   
 
@@ -38,6 +40,7 @@ export class ViewComponent implements OnInit {
     this.showCalculationLogic=false;
     this.showScoreLevel=false;
     this.showScoreCap=false;
+    this.showText=false;
     showTableDimension?.classList.add('active');
     showTableWeight?.classList.remove('active');
     showTableLogic?.classList.remove('active');
@@ -56,6 +59,7 @@ export class ViewComponent implements OnInit {
     this.showCalculationLogic=false;
     this.showScoreLevel=false;
     this.showScoreCap=false;
+    this.showText=false;
     showTableDimension?.classList.remove('active');
     showTableWeight?.classList.add('active');
     showTableLogic?.classList.remove('active');
@@ -75,6 +79,7 @@ export class ViewComponent implements OnInit {
     this.showCalculationLogic=true;
     this.showScoreLevel=false;
     this.showScoreCap=false;
+    this.showText=false;
     showTableDimension?.classList.remove('active');
     showTableWeight?.classList.remove('active');
     showTableLogic?.classList.add('active');
@@ -94,6 +99,7 @@ export class ViewComponent implements OnInit {
     this.showCalculationLogic=false;
     this.showScoreLevel=true;
     this.showScoreCap=false;
+    this.showText=false;
     showTableDimension?.classList.remove('active');
     showTableWeight?.classList.remove('active');
     showTableLogic?.classList.remove('active');
@@ -112,6 +118,7 @@ export class ViewComponent implements OnInit {
     this.showCalculationLogic=false;
     this.showScoreLevel=false;
     this.showScoreCap=true;
+    this.showText=false;
     showTableDimension?.classList.remove('active');
     showTableWeight?.classList.remove('active');
     showTableLogic?.classList.remove('active');

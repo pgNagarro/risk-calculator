@@ -70,14 +70,14 @@ export class AddCompanyDimensionComponent implements OnInit {
     
 
   if(!this.companyDimension){
-    this.companyDimension= new CompanyDimension(cName.toLowerCase());
+    this.companyDimension= new CompanyDimension(this.toCamelCase(cName.toLowerCase()));
   }
       
     
     
     console.log(dName+' '+dValue);
     
-    let dimensions = new Dimension(dName.toLowerCase(),dValue);
+    let dimensions = new Dimension(this.toCamelCase(dName),dValue);
     this.companyDimension.addDimensions(dimensions);
 
     this.service.addCompanyDimension(this.companyDimension).subscribe(data=>{
@@ -86,5 +86,12 @@ export class AddCompanyDimensionComponent implements OnInit {
       this.ref.close();
     },error=>console.error(error));
 
+  }
+
+  toCamelCase(inputString: string): string {
+    return inputString
+      .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
+      .replace(/^[a-z]/, firstLetter => firstLetter.toUpperCase())
+      .replace(/([a-z0-9])([A-Z])/g, '$1 $2');
   }
 }

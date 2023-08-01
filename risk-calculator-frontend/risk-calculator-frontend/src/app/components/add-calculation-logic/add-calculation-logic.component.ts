@@ -80,6 +80,7 @@ export class AddCalculationLogicComponent implements OnInit {
        
         this.formulaElements.push(selectedElement);
         this.calculationLogicForm.get('dropdownOption')?.setValue('');
+        this.updateFormula();
       } else {
         alert('Invalid formula: Cannot add formula element after a formula element!');
       }
@@ -235,7 +236,12 @@ updateFormula() {
     }
   }
   
-  
+  toCamelCase(inputString: string): string {
+    return inputString
+      .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
+      .replace(/^[a-z]/, firstLetter => firstLetter.toUpperCase())
+      .replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+  }
   
   
 

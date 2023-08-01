@@ -90,6 +90,7 @@ export class UpdateCalculationLogicComponent implements OnInit {
        
         this.formulaElements.push(selectedElement);
         this.calculationLogicForm.get('dropdownOption')?.setValue('');
+        this.updateFormula();
       } else {
         alert('Invalid formula: Cannot add formula element after a formula element!');
       }
@@ -200,7 +201,7 @@ updateFormula() {
     }
 
    this.calculationLogic.formula = this.formula;
-   this.calculationLogicService.updateCalculationLogic(this.elementName.toLowerCase(),this.calculationLogic).subscribe((data)=>{
+   this.calculationLogicService.updateCalculationLogic(this.elementName,this.calculationLogic).subscribe((data)=>{
       console.log(data);
       this.ref.close();
    });
@@ -219,6 +220,12 @@ updateFormula() {
     return inputString.trim() === '';
   }
 
+  toCamelCase(inputString: string): string {
+    return inputString
+      .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
+      .replace(/^[a-z]/, firstLetter => firstLetter.toUpperCase())
+      .replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+  }
 
   onMinOrMaxOptionSelect(optionNumber: number, event: any) {
     const selectedOption = event.target.value;

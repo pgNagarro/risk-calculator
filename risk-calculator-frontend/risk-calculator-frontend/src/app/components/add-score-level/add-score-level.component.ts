@@ -36,7 +36,7 @@ export class AddScoreLevelComponent implements OnInit {
           alert('The new range collides with an existing range. Please enter non-overlapping range values.');
         } else {
           // If the range is not colliding with any existing range, proceed to add it
-          this.scoreLevel = new ScoreLevel(this.formData.range, this.formData.level.toLowerCase());
+          this.scoreLevel = new ScoreLevel(this.formData.range, this.toCamelCase(this.formData.level));
 
           this.service.addRiskScoreLevel(this.scoreLevel).subscribe((data) => {
             console.log(data);
@@ -50,7 +50,12 @@ export class AddScoreLevelComponent implements OnInit {
     }
   }
 
-   
+  toCamelCase(inputString: string): string {
+    return inputString
+      .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
+      .replace(/^[a-z]/, firstLetter => firstLetter.toUpperCase())
+      .replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+  }
 
   isRangeColliding(existingLevels: any): boolean {
     const newLowerRange = parseInt(this.formData.lowerRange, 10);

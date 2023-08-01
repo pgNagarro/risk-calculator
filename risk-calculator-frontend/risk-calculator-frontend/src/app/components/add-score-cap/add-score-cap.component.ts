@@ -61,11 +61,17 @@ export class AddScoreCapComponent implements OnInit {
     
   }
 
+  toCamelCase(inputString: string): string {
+    return inputString
+      .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
+      .replace(/^[a-z]/, firstLetter => firstLetter.toUpperCase())
+      .replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+  }
 
   private populateDropdownOptions() {
     const uniqueOptions = new Set<string>();
     for (const val of this.scoreLevel) {
-      const lowercaseLevel = val.level.toLowerCase();
+      const lowercaseLevel = this.toCamelCase(val.level);
       uniqueOptions.add(lowercaseLevel);
     }
     this.dropdownOptions = Array.from(uniqueOptions);

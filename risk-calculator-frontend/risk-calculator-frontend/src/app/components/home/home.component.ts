@@ -23,6 +23,13 @@ export class HomeComponent implements OnInit {
     console.log(this.results);
  }
 
+ toCamelCase(inputString: string): string {
+  return inputString
+    .replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase())
+    .replace(/^[a-z]/, firstLetter => firstLetter.toUpperCase())
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+}
+
  generateTable(_output: any){
   const table = this.tableRef.nativeElement;
 
@@ -34,7 +41,9 @@ export class HomeComponent implements OnInit {
 
     for(const val of _output[0].values){
       const header = document.createElement('th');
-      header.textContent = val.elementName;
+      const splittedArray = val.elementName.split(/[_\s]+/);
+      const newString = splittedArray.join(' ');
+      header.textContent = this.toCamelCase(newString);
       headerRow.appendChild(header);
     }
     thead.appendChild(headerRow);

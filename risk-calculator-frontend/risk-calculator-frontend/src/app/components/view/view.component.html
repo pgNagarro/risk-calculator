@@ -20,10 +20,16 @@
     </div>
 
     <section class="data">
+
         <app-company-dimension *ngIf="showCompanyDimension"></app-company-dimension>
         <app-dimension-weight *ngIf="showDimensionWeight"></app-dimension-weight>
         <app-calculation-logic *ngIf="showCalculationLogic"></app-calculation-logic>
         <app-score-level *ngIf="showScoreLevel"></app-score-level>
         <app-score-cap *ngIf="showScoreCap"></app-score-cap>
+
+        <div class="container" *ngIf="showText">
+            <p id="para">SELECT A TABLE FROM SIDE MENU TO CHECK DATA</p>
+        </div>
     </section>
+
 </div>
