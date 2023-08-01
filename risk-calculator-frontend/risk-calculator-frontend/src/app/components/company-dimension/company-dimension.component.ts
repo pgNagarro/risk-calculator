@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CompanyDimensionService } from 'src/app/services/company-dimension.service';
+import { SharedServiceService } from 'src/app/services/shared-service.service';
 
 import { AddCompanyDimensionComponent } from '../add-company-dimension/add-company-dimension.component';
 import { UpdateCompanyDimensionComponent } from '../update-company-dimension/update-company-dimension.component';
@@ -15,16 +16,21 @@ export class CompanyDimensionComponent implements OnInit {
   @ViewChild('tableRef', { static: true }) tableRef!: ElementRef<HTMLTableElement>;
 
   companyDimension: any;
+  
 
-  constructor(private dialog: MatDialog, private router: Router, private service: CompanyDimensionService) { }
+  constructor(private dialog: MatDialog, private router: Router, private service: CompanyDimensionService,private sharedDataService: SharedServiceService) { }
 
   ngOnInit(): void {
+    
+     this.loadData();
+  }
 
+  loadData(){
     let cds = this.service.getCompanyDimension();
     cds.subscribe((data) => {
       this.companyDimension = data;
       this.generateCompanyDimensionTable(this.companyDimension);
-    })
+    });
   }
 
   generateCompanyDimensionTable(_output: any) {
@@ -78,7 +84,8 @@ export class CompanyDimensionComponent implements OnInit {
       
       deleteButton.addEventListener('click', () => {
         this.service.deleteDimension(val.companyName).subscribe(data => {
-          this.generateCompanyDimensionTable(_output);
+          this.removeTable();
+          this.loadData();
         });
       });
       row.appendChild(updateButton);
@@ -93,10 +100,14 @@ export class CompanyDimensionComponent implements OnInit {
 
 
   openPopup() {
-    this.dialog.open(AddCompanyDimensionComponent, {
+    var pop_up = this.dialog.open(AddCompanyDimensionComponent, {
       width: '35%',
       height: '80%',
       panelClass: 'custom-dialog'
+    });
+    pop_up.afterClosed().subscribe(item=>{
+      this.removeTable();
+      this.loadData();
     })
   }
 
@@ -107,7 +118,17 @@ export class CompanyDimensionComponent implements OnInit {
       width: '35%',
       height: '70%',
       panelClass: 'custom-dialog'
-    })
+    }).afterClosed().subscribe(() => {
+      this.removeTable();
+      this.loadData();
+    });
   }
 
+ 
+  removeTable() {
+    const table = this.tableRef.nativeElement;
+    while (table.firstChild) {
+      table.removeChild(table.firstChild);
+    }
+  }
 }

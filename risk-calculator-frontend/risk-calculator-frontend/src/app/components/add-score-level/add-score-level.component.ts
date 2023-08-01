@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ScoreLevel } from 'src/app/models/ScoreLevel';
 import { ScoreLevelService } from 'src/app/services/score-level.service';
 
@@ -13,7 +14,7 @@ export class AddScoreLevelComponent implements OnInit {
 
   formData: any = {};
 
-  constructor(private service:ScoreLevelService) { }
+  constructor(private service:ScoreLevelService,private ref:MatDialogRef<AddScoreLevelComponent>) { }
 
   ngOnInit(): void {
   }
@@ -39,6 +40,7 @@ export class AddScoreLevelComponent implements OnInit {
 
           this.service.addRiskScoreLevel(this.scoreLevel).subscribe((data) => {
             console.log(data);
+            this.ref.close();
           });
 
           // Process the form data or submit it to the server

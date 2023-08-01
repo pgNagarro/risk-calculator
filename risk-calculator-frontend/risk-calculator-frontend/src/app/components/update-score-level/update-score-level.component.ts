@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ScoreLevel } from 'src/app/models/ScoreLevel';
 import { ScoreLevelService } from 'src/app/services/score-level.service';
 
@@ -15,7 +15,7 @@ export class UpdateScoreLevelComponent implements OnInit {
 
   levelValue:string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string,private service:ScoreLevelService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string,private service:ScoreLevelService,private ref:MatDialogRef<UpdateScoreLevelComponent>) { }
 
   ngOnInit(): void {
     this.score=this.data;
@@ -36,6 +36,7 @@ export class UpdateScoreLevelComponent implements OnInit {
       this.scoreLevel.level = this.levelValue.toLowerCase();
       this.service.updateRiskScoreLevel(this.score, this.scoreLevel).subscribe(data => {
         console.log(data);
+        this.ref.close();
       });
     } else {
       // Validation failed, display error or perform other actions as needed

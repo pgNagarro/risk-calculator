@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ScoreCap } from 'src/app/models/ScoreCap';
 import { ScoreLevel } from 'src/app/models/ScoreLevel';
 import { ScoreCapService } from 'src/app/services/score-cap.service';
@@ -21,7 +22,7 @@ export class AddScoreCapComponent implements OnInit {
   totalRiskCappedScore: number;
   isFormSubmitted: boolean = false;
 
-  constructor(private scoreLevelService:ScoreLevelService, private scoreCapService:ScoreCapService) { }
+  constructor(private scoreLevelService:ScoreLevelService, private scoreCapService:ScoreCapService,private ref:MatDialogRef<AddScoreCapComponent>) { }
 
   ngOnInit(): void {
     this.scoreLevelService.getRiskScoreLevel().subscribe((data) => {
@@ -49,6 +50,7 @@ export class AddScoreCapComponent implements OnInit {
 
       this.scoreCapService.addScoreCap(this.scoreCap).subscribe((data)=>{
           console.log(data);
+          this.ref.close();
       });
 
 

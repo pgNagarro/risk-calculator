@@ -12,14 +12,20 @@ import { AddDimensionWeightComponent } from '../add-dimension-weight/add-dimensi
 export class DimensionWeightComponent implements OnInit {
 
   dimensionWeights:any;
+  showTable : boolean = true;
 
   constructor(private dialog: MatDialog, private router: Router, private dimensionWeightService:DimensionWeightService) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(){
     this.dimensionWeightService.getDimensionWeight().subscribe((data)=>{
-        this.dimensionWeights=data;
-        console.log(this.dimensionWeights);
-    });
+      this.showTable = true;
+      this.dimensionWeights=data;
+      console.log(this.dimensionWeights);
+  });
   }
 
   openPopup(){
@@ -27,7 +33,12 @@ export class DimensionWeightComponent implements OnInit {
       width: '50%',
       height: '85%',
       panelClass: 'custom-dialog'
-    })
+    }).afterClosed().subscribe(() => {
+      this.showTable = false;
+      this.loadData();
+    });
   }
+
+ 
 
 }

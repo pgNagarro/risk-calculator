@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ScoreCap } from 'src/app/models/ScoreCap';
 import { ScoreCapService } from 'src/app/services/score-cap.service';
 
@@ -16,7 +16,7 @@ export class UpdateScoreCapComponent implements OnInit {
   totalScoreCappedValue:number;
   isFormSubmitted: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string,private scoreCapService:ScoreCapService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string,private scoreCapService:ScoreCapService,private ref:MatDialogRef<UpdateScoreCapComponent>) { }
 
   ngOnInit(): void {
     this.condition=this.data;
@@ -35,6 +35,7 @@ export class UpdateScoreCapComponent implements OnInit {
       this.scoreCap.totalRiskCappedScore=this.totalScoreCappedValue;
       this.scoreCapService.updateScoreCap(this.condition,this.scoreCap).subscribe((data)=>{
         console.log(data);
+        this.ref.close();
       });
     }else {
       // If the form is invalid, show an alert

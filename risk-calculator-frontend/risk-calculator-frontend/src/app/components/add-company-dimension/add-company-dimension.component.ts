@@ -21,7 +21,7 @@ export class AddCompanyDimensionComponent implements OnInit {
   dimensionForm!: FormGroup;
 
   constructor(private fb: FormBuilder,private service:CompanyDimensionService, 
-    private router:Router,private ref:MatDialogRef<AddCompanyDimensionComponent>,private sharedService:SharedServiceService) { }
+    private router:Router,private ref:MatDialogRef<AddCompanyDimensionComponent>,private sharedDataService:SharedServiceService) { }
 
   ngOnInit() {
     this.createDimensionForm();
@@ -50,6 +50,8 @@ export class AddCompanyDimensionComponent implements OnInit {
       // Reset the form after successful submission
       this.dimensionForm.reset();
       this.saveCompanyDimension(companyName,dimensionName,dimensionValue);
+      
+     
 
     } else {
       // Mark all fields as touched to display validation errors
@@ -82,12 +84,7 @@ export class AddCompanyDimensionComponent implements OnInit {
       console.log(this.companyDimension);
       console.log(data);
       this.ref.close();
-     window.location.reload();
     },error=>console.error(error));
 
   }
-
- 
-
-  
 }

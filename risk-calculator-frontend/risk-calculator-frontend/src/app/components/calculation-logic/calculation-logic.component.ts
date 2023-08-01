@@ -12,13 +12,19 @@ import { UpdateCalculationLogicComponent } from '../update-calculation-logic/upd
 export class CalculationLogicComponent implements OnInit {
 
   allCalculationLogic:any;
+  showTable:boolean=true;
 
   constructor(private dialog: MatDialog, private calculationLogicService:CalculationLogicService) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(){
     this.calculationLogicService.getCalculationLogicLogic().subscribe((data)=>{
-        this.allCalculationLogic=data;
-    });
+      this.showTable = true;
+      this.allCalculationLogic=data;
+  });
   }
 
   openPopup(){
@@ -26,7 +32,10 @@ export class CalculationLogicComponent implements OnInit {
       width: '70%',
       height: '100%',
       panelClass: 'custom-dialog'
-    })
+    }).afterClosed().subscribe(() => {
+      this.showTable = false;
+      this.loadData();
+    });
   }
 
   updatePopup(elementName:string){
@@ -35,12 +44,16 @@ export class CalculationLogicComponent implements OnInit {
       width: '70%',
       height: '100%',
       panelClass: 'custom-dialog'
+    }).afterClosed().subscribe(() => {
+       this.showTable = false;
+      this.loadData();
     });
   }
 
   deleteRiskCalc(elementName:string){
     this.calculationLogicService.deleteCalculationLogic(elementName).subscribe((data)=>{
-    
+    this.showTable = false;
+    this.loadData();
     });
   }
 

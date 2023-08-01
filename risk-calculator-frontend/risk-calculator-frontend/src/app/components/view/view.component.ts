@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from 'src/app/services/shared-service.service';
 
 @Component({
@@ -9,18 +10,22 @@ import { SharedServiceService } from 'src/app/services/shared-service.service';
 export class ViewComponent implements OnInit {
   
 
-  showCompanyDimension=true;
-  showDimensionWeight=true;
-  showCalculationLogic=true;
-  showScoreLevel=true;
-  showScoreCap=true;
+  showCompanyDimension:boolean;
+  showDimensionWeight:boolean;
+  showCalculationLogic:boolean;
+  showScoreLevel:boolean;
+  showScoreCap:boolean;
 
-  constructor(private sharedService:SharedServiceService) { }
+  constructor(private sharedDataService:SharedServiceService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-  
-
+    this.showCompanyDimension = false;
+    this.showDimensionWeight = false;
+    this.showCalculationLogic = false;
+    this.showScoreLevel = false;
+    this.showScoreCap = false;
   }
+  
 
   companyDimension(){
    const showTableDimension = document.getElementById('companyDimension');

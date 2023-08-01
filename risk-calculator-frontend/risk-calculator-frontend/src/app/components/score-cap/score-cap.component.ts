@@ -13,13 +13,19 @@ import { UpdateScoreCapComponent } from '../update-score-cap/update-score-cap.co
 export class ScoreCapComponent implements OnInit {
 
   scoreCaps:any;
+  showTable:boolean=true;
 
   constructor(private dialog: MatDialog, private service:ScoreCapService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(){
     this.service.getScoreCap().subscribe((data)=>{
+      this.showTable=true;
       this.scoreCaps=data;
-    })
+    });
   }
 
   openPopup(){
@@ -27,7 +33,10 @@ export class ScoreCapComponent implements OnInit {
         width: '35%',
         height: '60%',
         panelClass: 'custom-dialog'
-      });
+      }).afterClosed().subscribe(() => {
+        this.showTable = false;
+       this.loadData();
+     });
   }
 
   openUpdatePopup(condition:string){
@@ -36,23 +45,18 @@ export class ScoreCapComponent implements OnInit {
       width: '35%',
       height: '50%',
       panelClass: 'custom-dialog'
-    });
+    }).afterClosed().subscribe(() => {
+      this.showTable = false;
+     this.loadData();
+   });
   }
 
   onDelete(condition:string){
       this.service.deleteScoreCap(condition).subscribe((data)=>{
           console.log(data);
-          this.reloadComponent();
+          this.showTable = false;
+          this.loadData();
       });
-  }
-
-  reloadComponent() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    const currentUrl = this.router.url + '?';
-    this.router.navigateByUrl(currentUrl).then(() => {
-      this.router.navigated = false;
-      this.router.navigate([this.router.url]);
-    });
   }
 
 }

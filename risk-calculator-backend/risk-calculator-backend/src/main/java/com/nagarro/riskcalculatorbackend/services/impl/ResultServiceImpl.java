@@ -16,9 +16,11 @@ import org.springframework.stereotype.Service;
 
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 import com.fathzer.soft.javaluator.StaticVariableSet;
+import com.nagarro.riskcalculatorbackend.enums.JobStatus;
 import com.nagarro.riskcalculatorbackend.models.CalculationLogic;
 import com.nagarro.riskcalculatorbackend.models.CompanyDimension;
 import com.nagarro.riskcalculatorbackend.models.DimensionWeight;
+import com.nagarro.riskcalculatorbackend.models.Job;
 import com.nagarro.riskcalculatorbackend.models.OutputValues;
 import com.nagarro.riskcalculatorbackend.models.Result;
 import com.nagarro.riskcalculatorbackend.models.ScoreCap;
@@ -27,6 +29,7 @@ import com.nagarro.riskcalculatorbackend.repositories.ResultRepository;
 import com.nagarro.riskcalculatorbackend.services.CalculationLogicService;
 import com.nagarro.riskcalculatorbackend.services.CompanyDimensionService;
 import com.nagarro.riskcalculatorbackend.services.DimensionWeightService;
+import com.nagarro.riskcalculatorbackend.services.JobService;
 import com.nagarro.riskcalculatorbackend.services.ResultService;
 import com.nagarro.riskcalculatorbackend.services.ScoreCapService;
 import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
@@ -59,10 +62,10 @@ public class ResultServiceImpl implements ResultService {
 	@Autowired
 	private ScoreCapService scoreCapService;
 	
-//	@Autowired
-//	private JobService jobService;
-//	
-//	public static Job job = new Job();
+	@Autowired
+	private JobService jobService;
+	
+	public static Job job = new Job();
 
 	/**
 	 * Method to add result to repo
@@ -83,14 +86,13 @@ public class ResultServiceImpl implements ResultService {
 	/**
 	 * Method to calculate result
 	 */
-//	@Override
-//	@Scheduled(fixedRate = 900000)
+	@Override
+	@Scheduled(fixedRate = 900000)
 	public void calculateResult() {
 		
 		logger.info("start : calculateResult");
 		
 		resultRepository.deleteAll();
-//		Job job = new Job();
 		
 		try {
 			
@@ -122,19 +124,18 @@ public class ResultServiceImpl implements ResultService {
 				logger.info(riskScoreList.get(m).getCompanyName() + " " + elementResultMap);
 				
 				insertValuesInResultTable(elementResultMap, riskScoreList, m);
-//				job.setDate(new Date());
-//				job.setJobStatus(JobStatus.SUCCESSFULL);
-//				job.setDesc("Job executed with no errors");
-//				addJobStatus();
-				System.out.println("heyooooooooooooooooooooooo "+ riskScoreList.get(m).getCompanyName()+" "+elementResultMap);
+				job.setDate(new Date());
+				job.setJobStatus(JobStatus.SUCCESSFULL);
+				job.setDesc("Job executed with no errors");
+				addJobStatus();
 			}
 		} catch (Exception e) {
 			
-//			job.setDesc(e.toString());
-//			job.setDate(new Date());
-//			job.setJobStatus(JobStatus.FAILED);
-//			
-//			addJobStatus();
+			job.setDesc(e.toString());
+			job.setDate(new Date());
+			job.setJobStatus(JobStatus.FAILED);
+			
+			addJobStatus();
 			
 			e.printStackTrace();
 		}
@@ -203,7 +204,6 @@ public class ResultServiceImpl implements ResultService {
 							if(formula_array[i].equals("min")) {
 								minMaxResult = Math.min(value1,value2);
 								variables.set("min("+formula_array[i+1]+","+formula_array[i+2]+")", minMaxResult);
-								System.out.println("heqihqieh min("+formula_array[i+1]+","+formula_array[i+2]+") = "+minMaxResult);
 								
 							}
 							if(formula_array[i].equals("max")) {
@@ -214,7 +214,7 @@ public class ResultServiceImpl implements ResultService {
 							for (int k = 0; k < formula_array.length; k++) {
 								// check if value is present or not in dimension table
 								if (elementResultMap.containsKey(formula_array[k])) {
-									variables.set(formula_array[k], Double.valueOf(elementResultMap.get(formula_array[k])));
+									variables.set(formula_array[k], elementResultMap.get(formula_array[k]));
 								} else {
 
 									for (int l = 0; l < riskScoreList.get(m).getDimensions().size(); l++) {
@@ -249,7 +249,7 @@ public class ResultServiceImpl implements ResultService {
 				for (int k = 0; k < formula_array.length; k++) {
 					// check if value is present or not in dimension table
 					if (elementResultMap.containsKey(formula_array[k])) {
-						variables.set(formula_array[k], Double.valueOf(elementResultMap.get(formula_array[k])));
+						variables.set(formula_array[k], elementResultMap.get(formula_array[k]));
 					} else {
 
 						for (int l = 0; l < riskScoreList.get(m).getDimensions().size(); l++) {
@@ -280,7 +280,6 @@ public class ResultServiceImpl implements ResultService {
 			}
 		} 
 	}
-
 	
 	// Method to insert calculated values from risk calc logic to output table
 	
@@ -379,8 +378,8 @@ public class ResultServiceImpl implements ResultService {
 	
 	// Method to add job
 	
-//	public void addJobStatus() {
-//		jobService.addJob(job);
-//	}
+	public void addJobStatus() {
+		jobService.addJob(job);
+	}
 
 }

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CalculationLogic } from 'src/app/models/CalculationLogic';
 import { CalculationLogicService } from 'src/app/services/calculation-logic.service';
 import { CompanyDimensionService } from 'src/app/services/company-dimension.service';
@@ -34,7 +34,8 @@ export class UpdateCalculationLogicComponent implements OnInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: string,private formBuilder: FormBuilder, private companyDimensionService:CompanyDimensionService,
-    private dimensionWeightService:DimensionWeightService, private calculationLogicService:CalculationLogicService) {}
+    private dimensionWeightService:DimensionWeightService, private calculationLogicService:CalculationLogicService,
+    private ref:MatDialogRef<UpdateCalculationLogicComponent>) {}
 
   ngOnInit() {
     this.calculationLogicForm = this.formBuilder.group({
@@ -201,6 +202,7 @@ updateFormula() {
    this.calculationLogic.formula = this.formula;
    this.calculationLogicService.updateCalculationLogic(this.elementName.toLowerCase(),this.calculationLogic).subscribe((data)=>{
       console.log(data);
+      this.ref.close();
    });
 
     // Optionally, you can reset the form after submission

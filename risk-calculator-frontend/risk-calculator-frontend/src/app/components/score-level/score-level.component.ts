@@ -13,10 +13,16 @@ import { UpdateScoreLevelComponent } from '../update-score-level/update-score-le
 export class ScoreLevelComponent implements OnInit {
 
   scoreLevels:any;
+  showTable:boolean=true;
   constructor(private dialog: MatDialog, private router: Router, private service:ScoreLevelService) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(){
     this.service.getRiskScoreLevel().subscribe((data)=>{
+      this.showTable = true;
       this.scoreLevels=data;
     });
   }
@@ -26,7 +32,10 @@ export class ScoreLevelComponent implements OnInit {
       width: '35%',
       height: '60%',
       panelClass: 'custom-dialog'
-    })
+    }).afterClosed().subscribe(() => {
+      this.showTable = false;
+     this.loadData();
+   });
   }
 
   openUpdatePopup(score:string){
@@ -35,22 +44,19 @@ export class ScoreLevelComponent implements OnInit {
       width: '35%',
       height: '60%',
       panelClass: 'custom-dialog'
-    });
+    }).afterClosed().subscribe(() => {
+      this.showTable = false;
+     this.loadData();
+   });
   }
 
   onDelete(score:string){
     this.service.deleteRiskScoreLevel(score).subscribe(data=>{
-      this.reloadComponent();
+        this.showTable = false;
+        this.loadData();
     });
   }
 
-  reloadComponent() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    const currentUrl = this.router.url + '?';
-    this.router.navigateByUrl(currentUrl).then(() => {
-      this.router.navigated = false;
-      this.router.navigate([this.router.url]);
-    });
-  }
+ 
 
 }

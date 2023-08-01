@@ -1,15 +1,37 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedServiceService {
 
-  private showCompanyDimensionSubject = new BehaviorSubject<boolean>(true);
-  public showCompanyDimension$: Observable<boolean> = this.showCompanyDimensionSubject.asObservable();
+  showCompanyDimensionSubject = new Subject<boolean>();
+  showDimensionWeightSubject = new Subject<boolean>();
+  showCalculationLogicSubject = new Subject<boolean>();
+  showScoreLevelSubject = new Subject<boolean>();
+  showScoreCapSubject = new Subject<boolean>();
 
-  toggleCompanyDimension(show: boolean): void {
-    this.showCompanyDimensionSubject.next(show);
+  // Methods to update values in the components
+  updateShowCompanyDimension(value: boolean) {
+    this.showCompanyDimensionSubject.next(value);
+    console.log(this.showCompanyDimensionSubject.next(value));
+  }
+
+  updateShowDimensionWeight(value: boolean) {
+    this.showDimensionWeightSubject.next(value);
+  }
+
+  updateShowCalculationLogic(value: boolean) {
+    this.showCalculationLogicSubject.next(value);
+  }
+
+  updateShowScoreLevel(value: boolean) {
+    this.showScoreLevelSubject.next(value);
+  }
+
+  updateShowScoreCap(value: boolean) {
+    this.showScoreCapSubject.next(value);
   }
 }
+

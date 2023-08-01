@@ -1,6 +1,6 @@
-import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CalculationLogic } from 'src/app/models/CalculationLogic';
 import { CalculationLogicService } from 'src/app/services/calculation-logic.service';
 import { CompanyDimensionService } from 'src/app/services/company-dimension.service';
@@ -29,7 +29,8 @@ export class AddCalculationLogicComponent implements OnInit {
   calculationLogic:CalculationLogic;
 
   constructor(private formBuilder: FormBuilder, private companyDimensionService:CompanyDimensionService,
-    private dimensionWeightService:DimensionWeightService, private calculationLogicService:CalculationLogicService) {}
+    private dimensionWeightService:DimensionWeightService, private calculationLogicService:CalculationLogicService,
+    private ref:MatDialogRef<AddCalculationLogicComponent>) {}
 
   ngOnInit() {
     this.calculationLogicForm = this.formBuilder.group({
@@ -151,7 +152,7 @@ updateFormula() {
 
   undoSelection() {
     if(this.formulaElements.length>=3){
-      if(this.formulaElements[this.formulaElements.length-3]=='min' || this.formulaElements[this.formulaElements.length-3]=='min'){
+      if(this.formulaElements[this.formulaElements.length-3]=='min' || this.formulaElements[this.formulaElements.length-3]=='max'){
         this.formulaElements.pop();
         this.formulaElements.pop();
         this.formulaElements.pop();
@@ -194,7 +195,8 @@ updateFormula() {
     this.calculationLogic = new CalculationLogic(this.calculationLogicForm.value.elementName.toLowerCase(),this.formula);
     this.calculationLogicService.addCalculationLogic(this.calculationLogic).subscribe((data)=>{
       console.log(data);
-    })
+      this.ref.close();
+    });
 
     // Optionally, you can reset the form after submission
     this.calculationLogicForm.reset();

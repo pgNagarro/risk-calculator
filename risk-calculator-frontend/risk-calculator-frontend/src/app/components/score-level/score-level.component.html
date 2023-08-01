@@ -9,7 +9,7 @@
                 <button mat-raised-button class="addButton" (click)="openPopup()">Add data</button></mat-dialog-actions>
         </td>
     </div><br>
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered" *ngIf="showTable">
         <thead class="table-dark">
             <tr>
                 <th>Score</th>

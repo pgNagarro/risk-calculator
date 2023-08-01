@@ -78,7 +78,7 @@ export class AddDimensionWeightComponent implements OnInit {
     });
 
       this.ref.close();
-      window.location.reload();
+  
 
   }
 

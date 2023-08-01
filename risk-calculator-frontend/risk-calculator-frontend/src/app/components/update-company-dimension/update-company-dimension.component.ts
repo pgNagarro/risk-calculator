@@ -32,7 +32,6 @@ export class UpdateCompanyDimensionComponent implements OnInit {
   submit() {
       this.service.updateDimension(this.companyName,this.companyDimension).subscribe(data=>{
         this.ref.close();
-        window.location.reload();
         console.log(this.companyName+"fdsafsdafsda"+this.companyDimension.dimensions[0].dimensionValue);
       });
       
