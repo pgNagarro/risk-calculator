@@ -15,6 +15,7 @@ h1 {
     text-transform: capitalize;
     font-weight: 900;
     padding-top: 3%;
+    background-color: #312450;
     color: white;
     padding-bottom: 3%;
 }
@@ -93,7 +94,7 @@ button {
 #para {
     color: white;
     z-index: -1;
-    font-size: xxx-large;
+    font-size: xx-large;
 }
 
 body {
@@ -237,4 +238,11 @@ body {
     align-items: center;
     height: 100vh;
     /* Optional: This will center the content vertically within the viewport */
+}
+
+#pageButton {
+    width: 45%;
+    height: 45%;
+    margin-left: 4%;
+    border-radius: 20%;
 }

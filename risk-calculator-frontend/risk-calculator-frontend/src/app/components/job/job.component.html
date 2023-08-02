@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<body class="mat-typography">
+
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+
+            <div class="center-container">
+
+
+                <div class="container">
+                    <p id="para">Job Status Data</p><br><br>
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Timestamp</th>
+                                <th>Description</th>
+                                <th>Job Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of paginatedResults">
+                                <td>{{val.id}}</td>
+                                <td>{{val.date}}</td>
+                                <td>{{val.desc}}</td>
+                                <td>{{val.jobStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center">
+                    <!-- Use the 'pageNumbers' array for pagination buttons -->
+                    <button *ngFor="let page of pageNumbers" type="button" (click)="changePage(page)" id="pageButton">{{ page }}</button>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" class="homeButtons" routerLink="/result">Go To Result</button><br><br>
+                    <button type=" button " class="homeButtons " routerLink="/view">View Data</button>
+                </div>
+            </div>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+
+</html>

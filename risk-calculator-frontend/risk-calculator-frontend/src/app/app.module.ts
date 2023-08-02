@@ -31,6 +31,8 @@ import { UpdateScoreCapComponent } from './components/update-score-cap/update-sc
 import { AddCalculationLogicComponent } from './components/add-calculation-logic/add-calculation-logic.component';
 import { UpdateCalculationLogicComponent } from './components/update-calculation-logic/update-calculation-logic.component';
 import { HomeComponent } from './components/home/home.component';
+import { ResultComponent } from './components/result/result.component';
+import { JobComponent } from './components/job/job.component';
 
 
 
@@ -54,6 +56,8 @@ import { HomeComponent } from './components/home/home.component';
     AddCalculationLogicComponent,
     UpdateCalculationLogicComponent,
     HomeComponent,
+    ResultComponent,
+    JobComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 package com.nagarro.riskcalculatorbackend.services.impl;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nagarro.riskcalculatorbackend.config.JobConfig;
 import com.nagarro.riskcalculatorbackend.dtos.CalculationLogicDto;
+import com.nagarro.riskcalculatorbackend.enums.JobStatus;
 import com.nagarro.riskcalculatorbackend.models.CalculationLogic;
 import com.nagarro.riskcalculatorbackend.repositories.CalculationLogicRepository;
 import com.nagarro.riskcalculatorbackend.services.CalculationLogicService;
@@ -29,6 +32,9 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
     
     @Autowired
     private CalculationLogicRepository calculationLogicRepository;
+    
+    @Autowired
+    private JobConfig jobConfig;
 
     /**
      * Retrieves all the CalculationLogic entities from the database.
@@ -50,8 +56,12 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
     @Override
     public CalculationLogicDto saveCalculationLogic(CalculationLogicDto calculationLogicDto) {
         logger.info("start : saveCalculationLogic");
-        CalculationLogic calculationLogic = convertDtoToEntity(calculationLogicDto);
-        calculationLogicRepository.save(calculationLogic);
+        try{
+        	CalculationLogic calculationLogic = convertDtoToEntity(calculationLogicDto);
+        	calculationLogicRepository.save(calculationLogic);
+        }catch(Exception e) {
+        	jobConfig.createAndSaveJob(new Date(),JobStatus.FAILED, e.toString());
+        }
         return calculationLogicDto;
     }
     

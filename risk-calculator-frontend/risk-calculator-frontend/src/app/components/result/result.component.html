@@ -9,21 +9,24 @@
             <li></li>
             <li></li>
             <li></li>
+            <li></li>
+
             <div class="center-container">
 
+
                 <div class="container">
-                    <p id="para">RISK CALCULATOR</p><br><br>
+                    <p id="para">Result based on latest Data</p><br><br>
                     <table #tableRef class="table table-striped table-bordered">
                     </table>
 
                 </div>
 
                 <div class="text-center">
-                    <button type="button" class="homeButtons" routerLink="/result">Go To Result</button><br><br>
-                    <button type="button" class="homeButtons" routerLink="/view">View Data</button>
+                    <button type="button" class="homeButtons" (click)="recalculate()">Recalculate</button><br><br>
+                    <button type="button" class="homeButtons" routerLink="/view">View Data</button><br><br>
+                    <button type="button" class="homeButtons" routerLink="/job">Job Status</button>
                 </div>
             </div>
-            <li></li>
             <li></li>
             <li></li>
             <li></li>

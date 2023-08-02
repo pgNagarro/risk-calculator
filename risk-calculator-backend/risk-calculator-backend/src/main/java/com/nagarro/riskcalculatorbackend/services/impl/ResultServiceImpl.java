@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 import com.fathzer.soft.javaluator.StaticVariableSet;
+import com.nagarro.riskcalculatorbackend.config.JobConfig;
 import com.nagarro.riskcalculatorbackend.enums.JobStatus;
 import com.nagarro.riskcalculatorbackend.models.CalculationLogic;
 import com.nagarro.riskcalculatorbackend.models.CompanyDimension;
 import com.nagarro.riskcalculatorbackend.models.DimensionWeight;
-import com.nagarro.riskcalculatorbackend.models.Job;
 import com.nagarro.riskcalculatorbackend.models.OutputValues;
 import com.nagarro.riskcalculatorbackend.models.Result;
 import com.nagarro.riskcalculatorbackend.models.ScoreCap;
@@ -29,7 +29,6 @@ import com.nagarro.riskcalculatorbackend.repositories.ResultRepository;
 import com.nagarro.riskcalculatorbackend.services.CalculationLogicService;
 import com.nagarro.riskcalculatorbackend.services.CompanyDimensionService;
 import com.nagarro.riskcalculatorbackend.services.DimensionWeightService;
-import com.nagarro.riskcalculatorbackend.services.JobService;
 import com.nagarro.riskcalculatorbackend.services.ResultService;
 import com.nagarro.riskcalculatorbackend.services.ScoreCapService;
 import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
@@ -62,10 +61,12 @@ public class ResultServiceImpl implements ResultService {
 	@Autowired
 	private ScoreCapService scoreCapService;
 	
-	@Autowired
-	private JobService jobService;
-	
-	public static Job job = new Job();
+	private JobConfig jobConfig;
+
+    @Autowired
+    public ResultServiceImpl(JobConfig jobConfig) {
+        this.jobConfig = jobConfig;
+    }
 
 	/**
 	 * Method to add result to repo
@@ -93,6 +94,7 @@ public class ResultServiceImpl implements ResultService {
 		logger.info("start : calculateResult");
 		
 		resultRepository.deleteAll();
+	
 		
 		try {
 			
@@ -121,25 +123,14 @@ public class ResultServiceImpl implements ResultService {
 					evaluateFormula(riskScoreList,riskCalcList,riskDimensionList,elementResultMap,operations,m);
 				}
 				
-				logger.info(riskScoreList.get(m).getCompanyName() + " " + elementResultMap);
-				
 				insertValuesInResultTable(elementResultMap, riskScoreList, m);
-				job.setDate(new Date());
-				job.setJobStatus(JobStatus.SUCCESSFULL);
-				job.setDesc("Job executed with no errors");
-				addJobStatus();
 			}
+			jobConfig.createAndSaveJob(new Date(),JobStatus.SUCCESSFULL, "Job executed with no errors");
 		} catch (Exception e) {
 			
-			job.setDesc(e.toString());
-			job.setDate(new Date());
-			job.setJobStatus(JobStatus.FAILED);
-			
-			addJobStatus();
-			
+			jobConfig.createAndSaveJob(new Date(),JobStatus.FAILED, "Formula is invalid or There is an inappropriate calculation ");
 			e.printStackTrace();
 		}
-
 	}
 	
 
@@ -274,10 +265,15 @@ public class ResultServiceImpl implements ResultService {
 				}
 			}
 			
-			if (formulaResultValue == -1 || flag == 1) {
-				Double result = eval.evaluate(formula, variables);
-				elementResultMap.put(elementName, result);
-			}
+			try {
+		        if (formulaResultValue == -1 || flag == 1) {
+		            Double result = eval.evaluate(formula, variables);
+		            elementResultMap.put(elementName, result);
+		        }
+		    } catch (Exception e) {
+		        // Throw a custom EvaluationException if there's an error in evaluation
+		        throw new IOException("Error in evaluating formula: " + formula);
+		    }
 		} 
 	}
 	
@@ -306,8 +302,6 @@ public class ResultServiceImpl implements ResultService {
 		logger.info("start : calculateTotalRiskedCappedScore");
 		
 		Map<String, Integer> map = new HashMap<>();
-//		String[] single_digits = new String[] { "zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
-//				"Nine" };
 
 		List<CompanyDimension> riskScoreList = companyDimensionService.getAllCompanyDimension();
 		List<ScoreLevel> riskScoreLevelList = scoreLevelService.getAllRiskScoreLevel();
@@ -323,9 +317,7 @@ public class ResultServiceImpl implements ResultService {
 				values.add(riskScoreList.get(i).getDimensions().get(j).getDimensionValue());
 				compareScore(level,riskScoreLevelList,values,j);
 			}
-			for (Map.Entry<String, Integer> entry : level.entrySet()) {
-				
-			//	String s = single_digits[entry.getValue()] + " \"" + entry.getKey() + "\"";
+			for (Map.Entry<String, Integer> entry : level.entrySet()) {	
 				
 				String s = numberToWord(entry.getValue()) + " \"" + entry.getKey() + "\"";
 				
@@ -376,10 +368,6 @@ public class ResultServiceImpl implements ResultService {
 		}
 	}
 	
-	// Method to add job
 	
-	public void addJobStatus() {
-		jobService.addJob(job);
-	}
 
 }

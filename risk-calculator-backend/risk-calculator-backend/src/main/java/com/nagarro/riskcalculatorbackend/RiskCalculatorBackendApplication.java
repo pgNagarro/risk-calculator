@@ -11,5 +11,4 @@ public class RiskCalculatorBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RiskCalculatorBackendApplication.class, args);
 	}
-
 }
