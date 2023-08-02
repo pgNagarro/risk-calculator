@@ -26,7 +26,7 @@ import com.nagarro.riskcalculatorbackend.services.DimensionWeightService;
 @Service
 public class DimensionWeightServiceImpl implements DimensionWeightService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DimensionWeightServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DimensionWeightServiceImpl.class);
 
     @Autowired
     private DimensionWeightRepository dimensionWeightRepository;
@@ -38,7 +38,7 @@ public class DimensionWeightServiceImpl implements DimensionWeightService {
      */
     @Override
     public List<DimensionWeight> getAllDimensionWeight() {
-        logger.info("Getting all DimensionWeights from the database.");
+        LOGGER.info("Getting all DimensionWeights from the database.");
         return dimensionWeightRepository.findAll();
     }
 
@@ -51,7 +51,7 @@ public class DimensionWeightServiceImpl implements DimensionWeightService {
      */
     @Override
     public DimensionWeightDto saveDimensionWeight(DimensionWeightDto dimensionWeightDto) throws IOException {
-        logger.info("Saving DimensionWeight entities to the database.");
+        LOGGER.info("Saving DimensionWeight entities to the database.");
         try {
             // Begin a transaction here if necessary
             dimensionWeightRepository.deleteAll();
@@ -63,7 +63,7 @@ public class DimensionWeightServiceImpl implements DimensionWeightService {
             // Commit the transaction if applicable
         } catch (Exception e) {
             // Rollback the transaction if applicable
-            logger.error("Error while saving DimensionWeight: " + e.getMessage());
+            LOGGER.error("Error while saving DimensionWeight: " + e.getMessage());
             throw new IOException("Failed to save DimensionWeight. Please check logs for details.");
         }
 

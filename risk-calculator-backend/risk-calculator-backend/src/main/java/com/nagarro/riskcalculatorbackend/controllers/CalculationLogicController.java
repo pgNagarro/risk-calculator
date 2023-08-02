@@ -32,7 +32,7 @@ import com.nagarro.riskcalculatorbackend.services.CalculationLogicService;
 @CrossOrigin(origins = "*")
 public class CalculationLogicController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CalculationLogicController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CalculationLogicController.class);
 
     @Autowired
     private CalculationLogicService calculationLogicService;
@@ -45,11 +45,11 @@ public class CalculationLogicController {
     @GetMapping("/all-calculation-logic")
     public ResponseEntity<List<CalculationLogic>> getAllRiskCalcLogic() {
 
-        logger.info("Request received for fetching all risk calculation logic data");
+        LOGGER.info("Request received for fetching all risk calculation logic data");
 
         List<CalculationLogic> calculationLogicList = calculationLogicService.getAllCalculationLogic();
 
-        logger.info("Request completed for fetching all risk calculation logic data");
+        LOGGER.info("Request completed for fetching all risk calculation logic data");
 
         return ResponseEntity.ok(calculationLogicList);
     }
@@ -64,11 +64,11 @@ public class CalculationLogicController {
     @PostMapping("/add-calculation-logic")
     public ResponseEntity<CalculationLogicDto> saveRiskCalcLogic(@RequestBody CalculationLogicDto calculationLogicDto) {
 
-        logger.info("Request received for adding risk calculation logic data");
+        LOGGER.info("Request received for adding risk calculation logic data");
 
         CalculationLogicDto newCalculationLogic = calculationLogicService.saveCalculationLogic(calculationLogicDto);
 
-		logger.info("Request completed for adding risk calculation logic data");
+		LOGGER.info("Request completed for adding risk calculation logic data");
 
 		return ResponseEntity.ok(newCalculationLogic);
     }
@@ -82,19 +82,19 @@ public class CalculationLogicController {
     @GetMapping("/calculation-logic/{elementName}")
     public ResponseEntity<CalculationLogicDto> getRiskCalcByElementName(@PathVariable String elementName) {
 
-        logger.info("Request received for getting single risk calculation logic data");
+        LOGGER.info("Request received for getting single risk calculation logic data");
 
         CalculationLogicDto calculationLogicDto;
 
         try {
             calculationLogicDto = calculationLogicService.getCalculationLogicByName(elementName);
 
-            logger.info("Request completed for getting single risk calculation logic data");
+            LOGGER.info("Request completed for getting single risk calculation logic data");
 
             return ResponseEntity.ok(calculationLogicDto);
 
         } catch (IOException e) {
-            logger.error("Error while fetching risk calculation logic data: " + e.getMessage());
+            LOGGER.error("Error while fetching risk calculation logic data: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.ok(null);
         }
@@ -112,11 +112,11 @@ public class CalculationLogicController {
     public ResponseEntity<CalculationLogicDto> updateRiskCalc(@PathVariable String elementName,
             @RequestBody CalculationLogicDto riskCalcDetails) {
 
-        logger.info("Request received for updating risk calculation logic data");
+        LOGGER.info("Request received for updating risk calculation logic data");
 
         CalculationLogicDto calculationLogicDto = calculationLogicService.updateCalculationLogic(riskCalcDetails);
 
-		logger.info("Request completed for updating risk calculation logic data");
+		LOGGER.info("Request completed for updating risk calculation logic data");
 
 		return ResponseEntity.ok(calculationLogicDto);
     }
@@ -130,7 +130,7 @@ public class CalculationLogicController {
     @DeleteMapping("/calculation-logic/{elementName}")
     public ResponseEntity<Map<String, Boolean>> deleteRiskCalc(@PathVariable String elementName) {
 
-        logger.info("Request received for deleting risk calculating logic data");
+        LOGGER.info("Request received for deleting risk calculating logic data");
 
         try {
             CalculationLogicDto calculationLogicDto = calculationLogicService.getCalculationLogicByName(elementName);
@@ -139,12 +139,12 @@ public class CalculationLogicController {
             Map<String, Boolean> response = new HashMap<>();
             response.put("Deleted", Boolean.TRUE);
 
-            logger.info("Request completed for deleting risk calculating logic data");
+            LOGGER.info("Request completed for deleting risk calculating logic data");
 
             return ResponseEntity.ok(response);
 
         } catch (IOException e) {
-            logger.error("Error while deleting risk calculating logic data: " + e.getMessage());
+            LOGGER.error("Error while deleting risk calculating logic data: " + e.getMessage());
             e.printStackTrace();
 
             Map<String, Boolean> response = new HashMap<>();

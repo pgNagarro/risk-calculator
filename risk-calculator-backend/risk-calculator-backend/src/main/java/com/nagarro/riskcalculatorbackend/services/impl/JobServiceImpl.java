@@ -21,7 +21,7 @@ import com.nagarro.riskcalculatorbackend.services.JobService;
 @Service
 public class JobServiceImpl implements JobService{
 	
-	private static final Logger logger = LoggerFactory.getLogger(JobServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JobServiceImpl.class);
 	
 	@Autowired
 	private JobRepository jobRepository;
@@ -32,7 +32,7 @@ public class JobServiceImpl implements JobService{
 	@Override
 	public void addJob(Job job) {
 		
-		logger.info("start: addJob");
+		LOGGER.info("start: addJob");
 		jobRepository.save(job);
 		
 	}
@@ -43,7 +43,7 @@ public class JobServiceImpl implements JobService{
 	@Override
 	public List<Job> getAllJobData() {
 		
-		logger.info("start: getAllJobData");
+		LOGGER.info("start: getAllJobData");
 		return jobRepository.findAll();
 	}
 	

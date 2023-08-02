@@ -41,7 +41,7 @@ import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
 @Service
 public class ResultServiceImpl implements ResultService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ResultServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ResultServiceImpl.class);
 
 	@Autowired
 	private ResultRepository resultRepository;
@@ -91,7 +91,7 @@ public class ResultServiceImpl implements ResultService {
 	@Scheduled(fixedRate = 900000)
 	public void calculateResult() {
 		
-		logger.info("start : calculateResult");
+		LOGGER.info("start : calculateResult");
 		
 		resultRepository.deleteAll();
 	
@@ -107,7 +107,7 @@ public class ResultServiceImpl implements ResultService {
 			String operations = "[(),%/*+-]";
 			
 			if( riskScoreList.isEmpty() || riskCalcList.isEmpty() || riskDimensionList.isEmpty() || totalCappedScoreMap.isEmpty()) {
-				logger.error("One or multiple tables are empty in database");
+				LOGGER.error("One or multiple tables are empty in database");
 				throw new IOException("One or multiple tables are empty in database");
 			}
 	
@@ -299,7 +299,7 @@ public class ResultServiceImpl implements ResultService {
 		
 	public Map<String, Integer> calculateTotalRiskedCappedScore() throws IOException{
 		
-		logger.info("start : calculateTotalRiskedCappedScore");
+		LOGGER.info("start : calculateTotalRiskedCappedScore");
 		
 		Map<String, Integer> map = new HashMap<>();
 

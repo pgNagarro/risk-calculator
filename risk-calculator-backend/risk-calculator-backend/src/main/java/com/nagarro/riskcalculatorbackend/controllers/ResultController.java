@@ -27,7 +27,7 @@ import com.nagarro.riskcalculatorbackend.services.ResultService;
 @CrossOrigin(origins="*")
 public class ResultController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ResultController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ResultController.class);
 	
 	@Autowired
 	private ResultService resultService;
@@ -40,11 +40,11 @@ public class ResultController {
 	@GetMapping("/result")
 	public ResponseEntity<List<Result>> displayResult() throws IOException {
 		
-		logger.info("Request received for fetching result");
+		LOGGER.info("Request received for fetching result");
 		
 		resultService.calculateResult();
 		
-		logger.info("Request completed for fetching result");
+		LOGGER.info("Request completed for fetching result");
 		
 		List<Result> resultList = resultService.getResult();
 		

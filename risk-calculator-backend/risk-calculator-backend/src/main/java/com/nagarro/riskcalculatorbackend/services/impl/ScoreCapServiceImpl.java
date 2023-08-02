@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ScoreCapServiceImpl implements ScoreCapService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ScoreCapServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScoreCapServiceImpl.class);
 
     @Autowired
     private ScoreCapRepository scoreCapRepository;
@@ -35,7 +35,7 @@ public class ScoreCapServiceImpl implements ScoreCapService {
      */
     @Override
     public List<ScoreCap> getAllScoreCap() {
-        logger.info("Fetching all ScoreCap data");
+        LOGGER.info("Fetching all ScoreCap data");
         return scoreCapRepository.findAll();
     }
 
@@ -46,7 +46,7 @@ public class ScoreCapServiceImpl implements ScoreCapService {
      */
     @Override
     public ScoreCapDto saveScoreCap(ScoreCapDto scoreCapDto) {
-        logger.info("Saving ScoreCap data");
+        LOGGER.info("Saving ScoreCap data");
         ScoreCap scoreCap = convertDtoToEntity(scoreCapDto);
         scoreCapRepository.save(scoreCap);
         return scoreCapDto;
@@ -60,7 +60,7 @@ public class ScoreCapServiceImpl implements ScoreCapService {
      */
     @Override
     public ScoreCapDto getScoreCapByCondition(String condition) throws IOException {
-        logger.info("Fetching ScoreCap data for condition: {}", condition);
+        LOGGER.info("Fetching ScoreCap data for condition: {}", condition);
         ScoreCap scoreCaps = scoreCapRepository.findByCondition(condition);
         return convertEntityToDto(scoreCaps);
     }
@@ -83,7 +83,7 @@ public class ScoreCapServiceImpl implements ScoreCapService {
      */
     @Override
     public ScoreCapDto updateScoreCap(ScoreCapDto scoreCapDto) {
-        logger.info("Updating ScoreCap data for condition: {}", scoreCapDto.getCondition());
+        LOGGER.info("Updating ScoreCap data for condition: {}", scoreCapDto.getCondition());
         ScoreCap scoreCap = scoreCapRepository.findByCondition(scoreCapDto.getCondition());
         scoreCap.setTotalRiskCappedScore(scoreCapDto.getTotalRiskCappedScore());
         scoreCapRepository.save(scoreCap);
@@ -96,7 +96,7 @@ public class ScoreCapServiceImpl implements ScoreCapService {
      */
     @Override
     public void deleteScoreCap(ScoreCapDto scoreCapDto) {
-        logger.info("Deleting ScoreCap data for condition: {}", scoreCapDto.getCondition());
+        LOGGER.info("Deleting ScoreCap data for condition: {}", scoreCapDto.getCondition());
         scoreCapRepository.deleteById(scoreCapDto.getCondition());
     }
 

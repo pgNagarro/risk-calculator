@@ -24,7 +24,7 @@ import com.nagarro.riskcalculatorbackend.services.JobService;
 @CrossOrigin(origins="*")
 public class JobController {
 
-	private static final Logger logger = LoggerFactory.getLogger(JobController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JobController.class);
 	
 	@Autowired
 	private JobService jobService;
@@ -37,11 +37,11 @@ public class JobController {
 	@GetMapping("/job-status")
 	public ResponseEntity<List<Job>> displayJob() throws IOException {
 		
-		logger.info("Request received for fetching result");
+		LOGGER.info("Request received for fetching result");
 		
 		List<Job> jobList = jobService.getAllJobData();
 		
-		logger.info("Request completed for fetching result");
+		LOGGER.info("Request completed for fetching result");
 		
 		return ResponseEntity.ok(jobList);
 		

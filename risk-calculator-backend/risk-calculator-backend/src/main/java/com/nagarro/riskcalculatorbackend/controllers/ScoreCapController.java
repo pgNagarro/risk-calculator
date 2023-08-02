@@ -33,7 +33,7 @@ import com.nagarro.riskcalculatorbackend.services.ScoreCapService;
 @CrossOrigin(origins = "*")
 public class ScoreCapController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ScoreCapController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScoreCapController.class);
 
     @Autowired
     private ScoreCapService scoreCapService;
@@ -46,11 +46,11 @@ public class ScoreCapController {
     @GetMapping("/all-score-cap")
     public ResponseEntity<List<ScoreCap>> getScoreCap() {
 
-        logger.info("Request received for fetching all score cap data");
+        LOGGER.info("Request received for fetching all score cap data");
 
         List<ScoreCap> scoreCapList = scoreCapService.getAllScoreCap();
 
-        logger.info("Request completed for fetching all score cap data");
+        LOGGER.info("Request completed for fetching all score cap data");
 
         return ResponseEntity.ok(scoreCapList);
     }
@@ -64,11 +64,11 @@ public class ScoreCapController {
     @PostMapping("/add-score-cap")
     public ResponseEntity<ScoreCapDto> saveScoreCap(@RequestBody ScoreCapDto scoreCapDto) {
 
-        logger.info("Request received for adding score cap data");
+        LOGGER.info("Request received for adding score cap data");
 
         ScoreCapDto newScoreCapDto = scoreCapService.saveScoreCap(scoreCapDto);
 
-        logger.info("Request completed for adding score cap data");
+        LOGGER.info("Request completed for adding score cap data");
 
         return ResponseEntity.ok(newScoreCapDto);
     }
@@ -82,20 +82,20 @@ public class ScoreCapController {
     @GetMapping("/score-cap/{condition}")
     public ResponseEntity<ScoreCapDto> getScoreCap(@PathVariable String condition) {
 
-        logger.info("Request received for getting single score cap data");
+        LOGGER.info("Request received for getting single score cap data");
 
         ScoreCapDto scoreCapDto;
 
         try {
             scoreCapDto = scoreCapService.getScoreCapByCondition(condition);
 
-            logger.info("Request completed for getting single score cap data");
+            LOGGER.info("Request completed for getting single score cap data");
 
             return ResponseEntity.ok(scoreCapDto);
 
         } catch (IOException e) {
 
-            logger.error("Error while fetching score cap data: " + e.getMessage());
+            LOGGER.error("Error while fetching score cap data: " + e.getMessage());
             return ResponseEntity.ok(null);
         }
     }
@@ -110,11 +110,11 @@ public class ScoreCapController {
     @PutMapping("/score-cap/{condition}")
     public ResponseEntity<ScoreCapDto> updateScoreCap(@PathVariable String condition, @RequestBody ScoreCapDto scoreCapDetails) {
 
-        logger.info("Request received for updating score cap data");
+        LOGGER.info("Request received for updating score cap data");
 
         ScoreCapDto scoreCapDto = scoreCapService.updateScoreCap(scoreCapDetails);
 
-        logger.info("Request received for updating score cap data");
+        LOGGER.info("Request received for updating score cap data");
 
         return ResponseEntity.ok(scoreCapDto);
     }
@@ -128,7 +128,7 @@ public class ScoreCapController {
     @DeleteMapping("/score-cap/{condition}")
     public ResponseEntity<Map<String, Boolean>> deleteScoreCap(@PathVariable String condition) {
 
-        logger.info("Request received for deleting score cap data");
+        LOGGER.info("Request received for deleting score cap data");
 
         ScoreCapDto scoreCapDto;
 
@@ -140,13 +140,13 @@ public class ScoreCapController {
             Map<String, Boolean> response = new HashMap<>();
             response.put("Deleted", Boolean.TRUE);
 
-            logger.info("Request received for deleting score cap data");
+            LOGGER.info("Request received for deleting score cap data");
 
             return ResponseEntity.ok(response);
 
         } catch (IOException e) {
 
-            logger.error("Error while deleting score cap data: " + e.getMessage());
+            LOGGER.error("Error while deleting score cap data: " + e.getMessage());
 
             Map<String, Boolean> response = new HashMap<>();
             response.put("Unable to Delete", Boolean.FALSE);

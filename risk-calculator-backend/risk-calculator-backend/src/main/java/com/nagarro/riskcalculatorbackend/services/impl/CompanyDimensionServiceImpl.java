@@ -28,7 +28,7 @@ import com.nagarro.riskcalculatorbackend.services.CompanyDimensionService;
 @Service
 public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 
-	private static final Logger logger = LoggerFactory.getLogger(CompanyDimensionServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDimensionServiceImpl.class);
 
 	@Autowired
 	private CompanyDimensionRepository companyDimensionRepository;
@@ -41,7 +41,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 	 */
 	@Override
 	public List<CompanyDimension> getAllCompanyDimension() {
-		logger.info("Start: getAllCompanyDimension");
+		LOGGER.info("Start: getAllCompanyDimension");
 		List<CompanyDimension> companyDimensions = companyDimensionRepository.findAll();
 		return companyDimensions;
 	}
@@ -54,7 +54,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 	 */
 	@Override
 	public void saveCompanyDimension(CompanyDimensionDto companyDimensionDto) throws IOException {
-		logger.info("start : saveCompanyDimension");
+		LOGGER.info("start : saveCompanyDimension");
 
 		CompanyDimension companyDimension = convertDtoToEntity(companyDimensionDto);
 
@@ -73,7 +73,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 							if (singleCompanyDimension.getDimensions().get(i).getDimensionName()
 									.equals(companyDimension.getDimensions().get(0).getDimensionName())) {
 								flag = 0;
-								throw new IOException("Dimension already present. Enter new dimension or update data");
+								throw new IOException("Dimension already present. Enter new dimension or update data"); 
 							}
 						}
 
@@ -81,7 +81,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 						int dvalue = companyDimension.getDimensions().get(0).getDimensionValue();
 
 						if (flag == -1) {
-							Dimension dimension = new Dimension(dname, dvalue);
+							Dimension dimension = new Dimension((int)Math.random(), dname, dvalue);
 							singleCompanyDimension.getDimensions().add(dimension);
 							companyDimensionRepository.save(singleCompanyDimension);
 							addDimensiontoRestCompanies(singleCompanyDimension.getCompanyName(), dimension);
@@ -105,10 +105,10 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 					int flag = -1;
 					for (Dimension dimension : companyDimensions.get(0).getDimensions()) {
 						if (companyDimension.getDimensions().get(0).getDimensionName().equals(dimension.getDimensionName())) {
-							dimensions.add(new Dimension(dimension.getDimensionName(), companyDimension.getDimensions().get(0).getDimensionValue()));
+							dimensions.add(new Dimension((int)Math.random(),dimension.getDimensionName(), companyDimension.getDimensions().get(0).getDimensionValue()));
 							flag = 0;
 						} else {
-							dimensions.add(new Dimension(dimension.getDimensionName(), 0));
+							dimensions.add(new Dimension((int)Math.random(),dimension.getDimensionName(), 0));
 						}
 					}
 					if (flag == -1) {
@@ -117,19 +117,19 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 						for (CompanyDimension singleCompanyDimension : companyDimensions) {
 							if (!(singleCompanyDimension.getCompanyName().equals(companyDimension.getCompanyName()))) {
 								// check if company is present in the list
-								Dimension dimension = new Dimension(dname, 0);
+								Dimension dimension = new Dimension((int)Math.random(),dname, 0);
 								singleCompanyDimension.getDimensions().add(dimension);
-								companyDimensionRepository.save(singleCompanyDimension);
+								companyDimensionRepository.save(singleCompanyDimension); 
 							}
 						}
-						dimensions.add(new Dimension(dname, dvalue));
+						dimensions.add(new Dimension((int)Math.random(),dname, dvalue));
 					}
 					newCompanyDimension.setDimensions(dimensions);
 					companyDimensionRepository.save(newCompanyDimension);
 				}
 			}
 		} catch (Exception e) {
-			logger.error("Error occurred while saving company dimension data: {}", e.getMessage());
+			LOGGER.error("Error occurred while saving company dimension data: {}", e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -158,7 +158,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 	 */
 	@Override
 	public CompanyDimensionDto getCompanyDimensionByCompanyName(String companyName) throws IOException {
-		logger.info("start : getCompanyDimensionByCompanyName");
+		LOGGER.info("start : getCompanyDimensionByCompanyName");
 
 		List<CompanyDimension> companyDimensions = companyDimensionRepository.findByCompanyName(companyName);
 
@@ -189,7 +189,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 	 */
 	@Override
 	public CompanyDimensionDto updateCompanyDimension(CompanyDimensionDto companyDimensionDto) {
-		logger.info("start : updateCompanyDimension");
+		LOGGER.info("start : updateCompanyDimension");
 
 		List<CompanyDimension> companyDimensions = companyDimensionRepository
 				.findByCompanyName(companyDimensionDto.getCompanyName());
@@ -209,7 +209,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 	 */
 	@Override
 	public void deleteCompanyDimension(CompanyDimensionDto companyDimensionDto) {
-		logger.info("start : deleteCompanyDimension");
+		LOGGER.info("start : deleteCompanyDimension");
 
 		List<CompanyDimension> companyDimensions = companyDimensionRepository
 				.findByCompanyName(companyDimensionDto.getCompanyName());
@@ -227,7 +227,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 	 */
 	@Override
 	public boolean checkDataIfPresent(CompanyDimension companyDimension) {
-		logger.info("start : checkDataIfPresent");
+		LOGGER.info("start : checkDataIfPresent");
 		List<CompanyDimension> companyDimensions = companyDimensionRepository
 				.findByCompanyName(companyDimension.getCompanyName());
 		return companyDimensions.isEmpty();
@@ -243,7 +243,7 @@ public class CompanyDimensionServiceImpl implements CompanyDimensionService {
 		List<CompanyDimension> riskScoreList = companyDimensionRepository.findAll();
 		for (CompanyDimension companyDimension : riskScoreList) {
 			if (!(companyDimension.getCompanyName().equals(companyName))) {
-				Dimension newdimension = new Dimension(dimension.getDimensionName(), 0);
+				Dimension newdimension = new Dimension((int)Math.random(),dimension.getDimensionName(), 0);
 				companyDimension.getDimensions().add(newdimension);
 				companyDimensionRepository.save(companyDimension);
 			}

@@ -28,7 +28,7 @@ import com.nagarro.riskcalculatorbackend.services.CalculationLogicService;
 @Service
 public class CalculationLogicServiceImpl implements CalculationLogicService{
 
-    private static final Logger logger = LoggerFactory.getLogger(CalculationLogicServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CalculationLogicServiceImpl.class);
     
     @Autowired
     private CalculationLogicRepository calculationLogicRepository;
@@ -43,7 +43,7 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
      */
     @Override
     public List<CalculationLogic> getAllCalculationLogic() {
-        logger.info("start : getAllCalculationLogic");
+        LOGGER.info("start : getAllCalculationLogic");
         return calculationLogicRepository.findAll();
     }
 
@@ -55,7 +55,7 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
      */
     @Override
     public CalculationLogicDto saveCalculationLogic(CalculationLogicDto calculationLogicDto) {
-        logger.info("start : saveCalculationLogic");
+        LOGGER.info("start : saveCalculationLogic");
         try{
         	CalculationLogic calculationLogic = convertDtoToEntity(calculationLogicDto);
         	calculationLogicRepository.save(calculationLogic);
@@ -74,7 +74,7 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
      */
     @Override
     public CalculationLogicDto getCalculationLogicByName(String name) throws IOException {
-        logger.info("start : getCalculationLogicByName");
+        LOGGER.info("start : getCalculationLogicByName");
         CalculationLogic singleLogic = calculationLogicRepository.findByElementName(name);
 
         return convertEntityToDto(singleLogic);
@@ -88,7 +88,7 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
      */
     @Override
     public CalculationLogicDto updateCalculationLogic(CalculationLogicDto calculationLogicDto) {
-        logger.info("start : updateCalculationLogic");
+        LOGGER.info("start : updateCalculationLogic");
         CalculationLogic calculationLogic = calculationLogicRepository.findByElementName(calculationLogicDto.getElementName());
         calculationLogic.setFormula(calculationLogicDto.getFormula());
         calculationLogicRepository.save(calculationLogic);
@@ -102,7 +102,7 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
      */
     @Override
     public void deleteCalculationLogic(CalculationLogicDto calculationLogicDto) {
-        logger.info("start : deleteCalculationLogic");
+        LOGGER.info("start : deleteCalculationLogic");
         calculationLogicRepository.deleteById(calculationLogicDto.getElementName());
     }
     

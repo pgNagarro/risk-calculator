@@ -24,7 +24,7 @@ import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
 @Service
 public class ScoreLevelServiceImpl implements ScoreLevelService{
 
-	private static final Logger logger = LoggerFactory.getLogger(ScoreLevelServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScoreLevelServiceImpl.class);
 	
 	@Autowired
 	private ScoreLevelRepository scoreLevelRepository;
@@ -36,7 +36,7 @@ public class ScoreLevelServiceImpl implements ScoreLevelService{
 	 */
 	@Override
 	public List<ScoreLevel> getAllRiskScoreLevel() {
-		logger.info("start : getAllRiskScoreLevel");
+		LOGGER.info("start : getAllRiskScoreLevel");
 		return scoreLevelRepository.findAll();
 	}
 
@@ -62,7 +62,7 @@ public class ScoreLevelServiceImpl implements ScoreLevelService{
 	 */
 	@Override
 	public ScoreLevelDto getScoreLevelByScore(String score) throws IOException {
-		logger.info("start : getScoreLevelByScore");
+		LOGGER.info("start : getScoreLevelByScore");
 		ScoreLevel riskScoreLevels = scoreLevelRepository.findByScore(score);
 		return convertEntityToDto(riskScoreLevels);
 	}
@@ -75,7 +75,7 @@ public class ScoreLevelServiceImpl implements ScoreLevelService{
 	 */
 	@Override
 	public ScoreLevelDto updateScoreLevel(ScoreLevelDto scoreLevelDto) {
-		logger.info("start : updateScoreLevel");
+		LOGGER.info("start : updateScoreLevel");
 		ScoreLevel newScoreLevel = scoreLevelRepository.findByScore(scoreLevelDto.getScore());
 		newScoreLevel.setLevel(scoreLevelDto.getLevel());
 		scoreLevelRepository.save(newScoreLevel);
@@ -89,7 +89,7 @@ public class ScoreLevelServiceImpl implements ScoreLevelService{
 	 */
 	@Override
 	public void deleteScoreLevel(ScoreLevelDto scoreLevelDto) {
-		logger.info("start : deleteRiskScoreLevel");
+		LOGGER.info("start : deleteRiskScoreLevel");
 		scoreLevelRepository.deleteById(scoreLevelDto.getScore());	
 	}
 

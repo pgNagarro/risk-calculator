@@ -33,7 +33,7 @@ import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
 @CrossOrigin(origins = "*")
 public class ScoreLevelController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ScoreLevelController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScoreLevelController.class);
 
     @Autowired
     private ScoreLevelService scoreLevelService;
@@ -46,11 +46,11 @@ public class ScoreLevelController {
     @GetMapping("/all-score-level")
     public ResponseEntity<List<ScoreLevel>> getRiskScoreLevel() {
 
-        logger.info("Request received for fetching all the risk score level data");
+        LOGGER.info("Request received for fetching all the risk score level data");
 
         List<ScoreLevel> scoreLevelList = scoreLevelService.getAllRiskScoreLevel();
 
-        logger.info("Request completed for fetching all the risk score level data");
+        LOGGER.info("Request completed for fetching all the risk score level data");
 
         return ResponseEntity.ok(scoreLevelList);
     }
@@ -64,11 +64,11 @@ public class ScoreLevelController {
     @PostMapping("/add-score-level")
     public ResponseEntity<ScoreLevelDto> saveRiskScoreLevel(@RequestBody ScoreLevelDto scoreLevelDto) {
 
-        logger.info("Request received for adding risk score level data");
+        LOGGER.info("Request received for adding risk score level data");
 
         ScoreLevelDto newRiskScoreLevelDto = scoreLevelService.saveScoreLevel(scoreLevelDto);
 
-        logger.info("Request completed for adding risk score level data");
+        LOGGER.info("Request completed for adding risk score level data");
 
         return ResponseEntity.ok(newRiskScoreLevelDto);
     }
@@ -82,20 +82,20 @@ public class ScoreLevelController {
     @GetMapping("/score-level/{score}")
     public ResponseEntity<ScoreLevelDto> getRiskScoreLevelByScore(@PathVariable String score) {
 
-        logger.info("Request received for getting single risk score level data");
+        LOGGER.info("Request received for getting single risk score level data");
 
         ScoreLevelDto scoreLevelDto;
 
         try {
             scoreLevelDto = scoreLevelService.getScoreLevelByScore(score);
 
-            logger.info("Request completed for getting single risk score level data");
+            LOGGER.info("Request completed for getting single risk score level data");
 
             return ResponseEntity.ok(scoreLevelDto);
 
         } catch (IOException e) {
 
-            logger.error("Error while fetching risk score level data: " + e.getMessage());
+            LOGGER.error("Error while fetching risk score level data: " + e.getMessage());
             return ResponseEntity.ok(null);
         }
     }
@@ -110,11 +110,11 @@ public class ScoreLevelController {
     @PutMapping("/score-level/{score}")
     public ResponseEntity<ScoreLevelDto> updateRiskScoreLevel(@PathVariable String score, @RequestBody ScoreLevelDto riskScoreLevelDetails) {
 
-        logger.info("Request received for updating risk score level");
+        LOGGER.info("Request received for updating risk score level");
 
         ScoreLevelDto scoreLevelDto = scoreLevelService.updateScoreLevel(riskScoreLevelDetails);
 
-        logger.info("Request completed for updating risk score level");
+        LOGGER.info("Request completed for updating risk score level");
 
         return ResponseEntity.ok(scoreLevelDto);
     }
@@ -128,7 +128,7 @@ public class ScoreLevelController {
     @DeleteMapping("/score-level/{score}")
     public ResponseEntity<Map<String, Boolean>> deleteRiskScoreLevel(@PathVariable String score) {
 
-        logger.info("Request received for deleting risk score level");
+        LOGGER.info("Request received for deleting risk score level");
 
         ScoreLevelDto scoreLevelDto;
 
@@ -140,13 +140,13 @@ public class ScoreLevelController {
             Map<String, Boolean> response = new HashMap<>();
             response.put("Deleted", Boolean.TRUE);
 
-            logger.info("Request completed for deleting risk score level");
+            LOGGER.info("Request completed for deleting risk score level");
 
             return ResponseEntity.ok(response);
 
         } catch (IOException e) {
 
-            logger.error("Error while deleting risk score level: " + e.getMessage());
+            LOGGER.error("Error while deleting risk score level: " + e.getMessage());
 
             Map<String, Boolean> response = new HashMap<>();
             response.put("Unable to Delete", Boolean.FALSE);

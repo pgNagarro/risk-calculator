@@ -37,7 +37,7 @@ import com.nagarro.riskcalculatorbackend.services.CompanyDimensionService;
 @CrossOrigin(origins = "*")
 public class CompanyDimensionController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CompanyDimensionController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDimensionController.class);
 
     @Autowired
     private CompanyDimensionService companyDimensionService;
@@ -50,11 +50,11 @@ public class CompanyDimensionController {
     @GetMapping("/company-dimension")
     public ResponseEntity<List<CompanyDimension>> getCompanyDimension() {
 
-        logger.info("Request received for fetching company dimensions");
+    	LOGGER.info("Request received for fetching company dimensions");
 
         List<CompanyDimension> companyDimensionList = companyDimensionService.getAllCompanyDimension();
 
-        logger.info("Request completed for fetching all the company dimensions");
+        LOGGER.info("Request completed for fetching all the company dimensions");
 
         return ResponseEntity.ok(companyDimensionList);
     }
@@ -70,16 +70,16 @@ public class CompanyDimensionController {
     @PostMapping("/add-company-dimension")
     public ResponseEntity<CompanyDimensionDto> saveCompanyDimension(@RequestBody CompanyDimensionDto companyDimensionDto) throws IOException {
 
-        logger.info("Request received for adding company dimension");
+        LOGGER.info("Request received for adding company dimension");
 
         try {
             companyDimensionService.saveCompanyDimension(companyDimensionDto);
 
-            logger.info("Request completed for adding company dimension");
+            LOGGER.info("Request completed for adding company dimension");
 
             return ResponseEntity.ok(companyDimensionDto);
         } catch (IOException e) {
-            logger.error("Error while saving company dimension data: " + e.getMessage());
+            LOGGER.error("Error while saving company dimension data: " + e.getMessage());
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
@@ -94,7 +94,7 @@ public class CompanyDimensionController {
     @GetMapping("/company-dimension/{companyName}")
     public ResponseEntity<CompanyDimensionDto> getCompanyDimensionByCompanyName(@PathVariable String companyName) {
 
-        logger.info("Request received for getting single company dimension");
+        LOGGER.info("Request received for getting single company dimension");
 
         CompanyDimensionDto companyDimensionDto;
 
@@ -102,13 +102,13 @@ public class CompanyDimensionController {
 
             companyDimensionDto = companyDimensionService.getCompanyDimensionByCompanyName(companyName);
 
-            logger.info("Request completed for getting single company dimension");
+            LOGGER.info("Request completed for getting single company dimension");
 
             return ResponseEntity.ok(companyDimensionDto);
 
         } catch (IOException e) {
 
-            logger.error("Error while fetching company dimension data: " + e.getMessage());
+            LOGGER.error("Error while fetching company dimension data: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.ok(null);
         }
@@ -126,11 +126,11 @@ public class CompanyDimensionController {
     public ResponseEntity<CompanyDimensionDto> updateCompanyDimension(@PathVariable String companyName,
             @RequestBody CompanyDimensionDto dimensionDetails) {
 
-        logger.info("Request received for updating company dimension data");
+        LOGGER.info("Request received for updating company dimension data");
 
         CompanyDimensionDto updatedDimension = companyDimensionService.updateCompanyDimension(dimensionDetails);
 
-		logger.info("Request completed for updating company dimension data");
+		LOGGER.info("Request completed for updating company dimension data");
 
 		return ResponseEntity.ok(updatedDimension);
     }
@@ -144,7 +144,7 @@ public class CompanyDimensionController {
     @DeleteMapping("/company-dimension/{companyName}")
     public ResponseEntity<Map<String, Boolean>> deleteDimension(@PathVariable String companyName) {
 
-        logger.info("Request received for deleting company dimension");
+        LOGGER.info("Request received for deleting company dimension");
 
         try {
             CompanyDimensionDto companyDimensionDto = companyDimensionService.getCompanyDimensionByCompanyName(companyName);
@@ -154,12 +154,12 @@ public class CompanyDimensionController {
             Map<String, Boolean> response = new HashMap<>();
             response.put("Deleted", Boolean.TRUE);
 
-            logger.info("Request completed for deleting company dimension data");
+            LOGGER.info("Request completed for deleting company dimension data");
 
             return ResponseEntity.ok(response);
 
         } catch (IOException e) {
-            logger.error("Error while deleting company dimension data: " + e.getMessage());
+            LOGGER.error("Error while deleting company dimension data: " + e.getMessage());
             e.printStackTrace();
 
             Map<String, Boolean> response = new HashMap<>();

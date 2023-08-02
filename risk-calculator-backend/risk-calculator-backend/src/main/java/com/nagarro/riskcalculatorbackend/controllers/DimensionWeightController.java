@@ -30,7 +30,7 @@ import com.nagarro.riskcalculatorbackend.services.DimensionWeightService;
 @CrossOrigin(origins = "*")
 public class DimensionWeightController {
 
-    private static final Logger logger = LoggerFactory.getLogger(DimensionWeightController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DimensionWeightController.class);
 
     @Autowired
     private DimensionWeightService dimensionWeightService;
@@ -43,11 +43,11 @@ public class DimensionWeightController {
     @GetMapping("/all-dimension-weight")
     public ResponseEntity<List<DimensionWeight>> getDimensionWeight() {
 
-        logger.info("Request received for fetching all Dimension Weight data");
+        LOGGER.info("Request received for fetching all Dimension Weight data");
 
         List<DimensionWeight> dimensionWeightList = dimensionWeightService.getAllDimensionWeight();
 
-        logger.info("Request completed for fetching all Dimension Weight data");
+        LOGGER.info("Request completed for fetching all Dimension Weight data");
 
         return ResponseEntity.ok(dimensionWeightList);
     }
@@ -62,17 +62,17 @@ public class DimensionWeightController {
     @PostMapping("/add-dimension-weight")
     public ResponseEntity<DimensionWeightDto> saveDimensionWeightDto(@RequestBody DimensionWeightDto dimensionWeightDto) {
 
-        logger.info("Request received for Dimension Weight data");
+        LOGGER.info("Request received for Dimension Weight data");
 
         try {
             DimensionWeightDto newDimensionWeightDto = dimensionWeightService.saveDimensionWeight(dimensionWeightDto);
 
-            logger.info("Request completed for Dimension Weight data");
+            LOGGER.info("Request completed for Dimension Weight data");
 
             return ResponseEntity.ok(newDimensionWeightDto);
 
         } catch (IOException e) {
-            logger.error("Error while saving Dimension Weight data: " + e.getMessage());
+            LOGGER.error("Error while saving Dimension Weight data: " + e.getMessage());
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
