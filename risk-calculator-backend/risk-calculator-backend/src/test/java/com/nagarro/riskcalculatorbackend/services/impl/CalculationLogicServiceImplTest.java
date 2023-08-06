@@ -15,10 +15,11 @@ import com.nagarro.riskcalculatorbackend.models.CalculationLogic;
 import com.nagarro.riskcalculatorbackend.repositories.CalculationLogicRepository;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,9 +74,10 @@ class CalculationLogicServiceImplTest {
      */
     @Test
     void testSaveCalculationLogic2() {
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         assertNull(calculationLogicServiceImpl.saveCalculationLogic(null));
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -112,10 +114,9 @@ class CalculationLogicServiceImplTest {
         assertEquals("Element Name", actualUpdateCalculationLogicResult.getElementName());
         assertEquals("Formula", actualUpdateCalculationLogicResult.getFormula());
         verify(calculationLogicRepository).findByElementName(Mockito.<String>any());
-        verify(calculationLogicRepository).save(Mockito.<CalculationLogic>any());
+        verify(calculationLogicRepository).save(Mockito.<CalculationLogic>any()); 
     }
 
-   
 
     /**
      * Method under test: {@link CalculationLogicServiceImpl#deleteCalculationLogic(CalculationLogicDto)}

@@ -1,7 +1,8 @@
 package com.nagarro.riskcalculatorbackend.services.impl;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -60,7 +61,7 @@ public class CalculationLogicServiceImpl implements CalculationLogicService{
         	CalculationLogic calculationLogic = convertDtoToEntity(calculationLogicDto);
         	calculationLogicRepository.save(calculationLogic);
         }catch(Exception e) {
-        	jobConfig.createAndSaveJob(new Date(),JobStatus.FAILED, e.toString());
+        	jobConfig.createAndSaveJob(LocalDateTime.now(),JobStatus.FAILED, e.toString());
         }
         return calculationLogicDto;
     }

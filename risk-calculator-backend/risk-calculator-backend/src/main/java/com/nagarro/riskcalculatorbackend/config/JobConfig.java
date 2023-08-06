@@ -1,7 +1,9 @@
 package com.nagarro.riskcalculatorbackend.config;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +29,13 @@ public class JobConfig  {
      * @param status      The status of the job (JobStatus enum).
      * @param description The description of the job.
      */
-    public void createAndSaveJob(Date date, JobStatus status,String description) {
+    public void createAndSaveJob(LocalDateTime date, JobStatus status,String description) {
         Job job = new Job();
         job.setDesc(description);
-        job.setDate(date);
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        String formattedDate = date.format(myFormatObj);
+        job.setDate(formattedDate);
         job.setJobStatus(status);
         jobRepository.save(job);
         

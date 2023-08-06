@@ -1,6 +1,6 @@
 package com.nagarro.riskcalculatorbackend.models;
 
-import java.util.Date;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ public class Job {
 	private Long id;
 	
 	@Column(name="Timestamp")
-	private Date date;
+	private String date;
 	
 	@Column(name="Description")
 	private String desc;

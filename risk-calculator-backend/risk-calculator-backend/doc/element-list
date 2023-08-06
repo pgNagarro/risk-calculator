@@ -1,0 +1,9 @@
+com.nagarro.riskcalculatorbackend
+com.nagarro.riskcalculatorbackend.config
+com.nagarro.riskcalculatorbackend.controllers
+com.nagarro.riskcalculatorbackend.dtos
+com.nagarro.riskcalculatorbackend.enums
+com.nagarro.riskcalculatorbackend.models
+com.nagarro.riskcalculatorbackend.repositories
+com.nagarro.riskcalculatorbackend.services
+com.nagarro.riskcalculatorbackend.services.impl

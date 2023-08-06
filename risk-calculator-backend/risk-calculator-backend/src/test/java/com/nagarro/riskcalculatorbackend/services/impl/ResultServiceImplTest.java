@@ -27,11 +27,13 @@ import com.nagarro.riskcalculatorbackend.services.ScoreLevelService;
 
 import java.io.IOException;
 
+import java.time.LocalDateTime;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 import org.junit.jupiter.api.Test;
@@ -115,14 +117,15 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(new ArrayList<>());
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(companyDimensionService, atLeast(1)).getAllCompanyDimension();
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -143,14 +146,15 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(new ArrayList<>());
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(companyDimensionService, atLeast(1)).getAllCompanyDimension();
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -177,14 +181,15 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(new ArrayList<>());
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(companyDimensionService, atLeast(1)).getAllCompanyDimension();
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -212,14 +217,15 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(new ArrayList<>());
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(companyDimensionService, atLeast(1)).getAllCompanyDimension();
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -253,14 +259,15 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(dimensionWeightList);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(companyDimensionService, atLeast(1)).getAllCompanyDimension();
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -299,14 +306,15 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(dimensionWeightList);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(companyDimensionService, atLeast(1)).getAllCompanyDimension();
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -350,14 +358,15 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(dimensionWeightList);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(companyDimensionService, atLeast(1)).getAllCompanyDimension();
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -392,14 +401,15 @@ class ResultServiceImplTest {
         ArrayList<ScoreLevel> scoreLevelList = new ArrayList<>();
         scoreLevelList.add(scoreLevel);
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(scoreLevelList);
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(companyDimensionService, atLeast(1)).getAllCompanyDimension();
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -442,7 +452,8 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(dimensionWeightList);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(calculationLogic).getElementName();
@@ -453,7 +464,7 @@ class ResultServiceImplTest {
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -497,7 +508,8 @@ class ResultServiceImplTest {
         when(resultRepository.save(Mockito.<Result>any())).thenReturn(result);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(calculationLogic, atLeast(1)).getElementName();
@@ -509,7 +521,7 @@ class ResultServiceImplTest {
         verify(resultRepository).save(Mockito.<Result>any());
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -553,7 +565,8 @@ class ResultServiceImplTest {
         when(resultRepository.save(Mockito.<Result>any())).thenReturn(result);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(calculationLogic, atLeast(1)).getElementName();
@@ -565,7 +578,7 @@ class ResultServiceImplTest {
         verify(resultRepository).save(Mockito.<Result>any());
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -609,7 +622,8 @@ class ResultServiceImplTest {
         when(resultRepository.save(Mockito.<Result>any())).thenReturn(result);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(calculationLogic, atLeast(1)).getElementName();
@@ -621,7 +635,7 @@ class ResultServiceImplTest {
         verify(resultRepository).save(Mockito.<Result>any());
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -665,7 +679,8 @@ class ResultServiceImplTest {
         when(resultRepository.save(Mockito.<Result>any())).thenReturn(result);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(calculationLogic, atLeast(1)).getElementName();
@@ -677,7 +692,7 @@ class ResultServiceImplTest {
         verify(resultRepository).save(Mockito.<Result>any());
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -715,7 +730,8 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(dimensionWeightList);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(calculationLogic).getElementName();
@@ -726,7 +742,7 @@ class ResultServiceImplTest {
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -764,7 +780,8 @@ class ResultServiceImplTest {
         when(dimensionWeightService.getAllDimensionWeight()).thenReturn(dimensionWeightList);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(calculationLogic).getElementName();
@@ -775,7 +792,7 @@ class ResultServiceImplTest {
         verify(dimensionWeightService).getAllDimensionWeight();
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -826,7 +843,8 @@ class ResultServiceImplTest {
         when(resultRepository.save(Mockito.<Result>any())).thenReturn(result);
         doNothing().when(resultRepository).deleteAll();
         when(scoreLevelService.getAllRiskScoreLevel()).thenReturn(new ArrayList<>());
-        doNothing().when(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        doNothing().when(jobConfig)
+                .createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
         resultServiceImpl.calculateResult();
         verify(calculationLogicService).getAllCalculationLogic();
         verify(calculationLogic, atLeast(1)).getElementName();
@@ -838,7 +856,7 @@ class ResultServiceImplTest {
         verify(resultRepository).save(Mockito.<Result>any());
         verify(resultRepository).deleteAll();
         verify(scoreLevelService).getAllRiskScoreLevel();
-        verify(jobConfig).createAndSaveJob(Mockito.<Date>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
+        verify(jobConfig).createAndSaveJob(Mockito.<LocalDateTime>any(), Mockito.<JobStatus>any(), Mockito.<String>any());
     }
 
     /**
@@ -895,10 +913,9 @@ class ResultServiceImplTest {
         assertTrue(resultServiceImpl.getResult().isEmpty());
     }
 
+  
 
 
-
- 
 
     /**
      * Method under test: {@link ResultServiceImpl#evaluateFormula(List, List, List, Map, String, int)}
@@ -964,7 +981,6 @@ class ResultServiceImplTest {
         verify(companyDimension).setId(anyInt());
         assertTrue(resultServiceImpl.getResult().isEmpty());
     }
-
 
     /**
      * Method under test: {@link ResultServiceImpl#insertValuesInResultTable(Map, List, int)}
@@ -1065,9 +1081,11 @@ class ResultServiceImplTest {
         verify(scoreLevelService).getAllRiskScoreLevel();
     }
 
+  
 
    
-    
+
+
     /**
      * Method under test: {@link ResultServiceImpl#compareScore(Map, List, List, int)}
      */
@@ -1168,7 +1186,8 @@ class ResultServiceImplTest {
     }
 
 
-   
+    
+
     /**
      * Method under test: {@link ResultServiceImpl#compareScore(Map, List, List, int)}
      */
@@ -1193,5 +1212,6 @@ class ResultServiceImplTest {
         verify(scoreLevel).setScore(Mockito.<String>any());
     }
 
+    
 }
 

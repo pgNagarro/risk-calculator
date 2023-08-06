@@ -1,9 +1,10 @@
 package com.nagarro.riskcalculatorbackend.services.impl;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,10 +126,10 @@ public class ResultServiceImpl implements ResultService {
 				
 				insertValuesInResultTable(elementResultMap, riskScoreList, m);
 			}
-			jobConfig.createAndSaveJob(new Date(),JobStatus.SUCCESSFULL, "Job executed with no errors");
+			jobConfig.createAndSaveJob(LocalDateTime.now(),JobStatus.SUCCESSFULL, "Job executed with no errors");
 		} catch (Exception e) {
 			
-			jobConfig.createAndSaveJob(new Date(),JobStatus.FAILED, "Formula is invalid or There is an inappropriate calculation ");
+			jobConfig.createAndSaveJob(LocalDateTime.now(),JobStatus.FAILED, "Formula is invalid or There is an inappropriate calculation ");
 			e.printStackTrace();
 		}
 	}
