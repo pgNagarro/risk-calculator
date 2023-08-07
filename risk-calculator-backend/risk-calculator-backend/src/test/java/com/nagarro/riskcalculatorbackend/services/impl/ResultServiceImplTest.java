@@ -1043,7 +1043,8 @@ class ResultServiceImplTest {
         Map<String, Integer> actualCalculateTotalRiskedCappedScoreResult = resultServiceImpl
                 .calculateTotalRiskedCappedScore();
         assertEquals(1, actualCalculateTotalRiskedCappedScoreResult.size());
-        Integer expectedGetResult = new Integer(100);
+        @SuppressWarnings("deprecation")
+		Integer expectedGetResult = new Integer(100);
         assertEquals(expectedGetResult,
                 actualCalculateTotalRiskedCappedScoreResult.get("start : calculateTotalRiskedCappedScore"));
         verify(companyDimensionService).getAllCompanyDimension();
